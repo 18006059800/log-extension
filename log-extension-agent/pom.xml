@@ -14,11 +14,12 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
-	<dependencies>
-		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<scope>test</scope>
-		</dependency>
-	</dependencies>
+	<packaging>pom</packaging>
+	<modules>
+		<module>log-extension-agent-annotation</module>
+		<module>log-extension-agent-domain</module>
+		<module>log-extension-agent-container</module>
+		<module>log-extension-agent-dubbo</module>
+		<module>log-extension-agent-log4j</module>
+	</modules>
 </project>
