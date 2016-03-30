@@ -8,7 +8,7 @@
 		<artifactId>log-extension-agent</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
-	<artifactId>log-extension-agent-container</artifactId>
+	<artifactId>log-extension-agent-core</artifactId>
 	<name>log-extension-agent-container</name>
 	<url>http://maven.apache.org</url>
 	<properties>

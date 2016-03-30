@@ -18,8 +18,9 @@
 	<modules>
 		<module>log-extension-agent-annotation</module>
 		<module>log-extension-agent-domain</module>
-		<module>log-extension-agent-container</module>
+		<module>log-extension-agent-core</module>
 		<module>log-extension-agent-dubbo</module>
 		<module>log-extension-agent-log4j</module>
+		<module>log-extension-agent-jsf</module>
 	</modules>
 </project>

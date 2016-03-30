@@ -3,7 +3,7 @@ package io.log.extension.agent.domain.spi;
 import java.io.Serializable;
 import java.util.Date;
 
-public class DefaultMessage implements Serializable {
+public class SimpleMessage implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	/**
@@ -23,21 +23,9 @@ public class DefaultMessage implements Serializable {
 	 */
 	private String messageId;
 	/**
-	 * 父消息
+	 * 节点的IP地址
 	 */
-	private String parentMessageId;
-	/**
-	 * 根消息
-	 */
-	private String rootMessageId;
-	/**
-	 * 回话
-	 */
-	private String sessionId;
-	/**
-	 * 当前节点
-	 */
-	private String ip;
+	private String ipAddress;
 	/**
 	 * 消息时间
 	 */
@@ -91,36 +79,12 @@ public class DefaultMessage implements Serializable {
 		this.messageId = messageId;
 	}
 
-	public String getParentMessageId() {
-		return parentMessageId;
+	public String getIpAddress() {
+		return ipAddress;
 	}
 
-	public void setParentMessageId(String parentMessageId) {
-		this.parentMessageId = parentMessageId;
-	}
-
-	public String getRootMessageId() {
-		return rootMessageId;
-	}
-
-	public void setRootMessageId(String rootMessageId) {
-		this.rootMessageId = rootMessageId;
-	}
-
-	public String getSessionId() {
-		return sessionId;
-	}
-
-	public void setSessionId(String sessionId) {
-		this.sessionId = sessionId;
-	}
-
-	public String getIp() {
-		return ip;
-	}
-
-	public void setIp(String ip) {
-		this.ip = ip;
+	public void setIpAddress(String ipAddress) {
+		this.ipAddress = ipAddress;
 	}
 
 	public Long getTime() {
