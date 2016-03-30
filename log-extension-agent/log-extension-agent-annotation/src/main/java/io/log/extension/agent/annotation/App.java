@@ -1,4 +1,4 @@
-package io.log.extension.annotation;
+package io.log.extension.agent.annotation;
 
 /**
  * Hello world!

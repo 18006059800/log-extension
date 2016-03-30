@@ -5,23 +5,21 @@
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>io.logx</groupId>
-		<artifactId>log-extension</artifactId>
+		<artifactId>log-extension-agent</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
-	<artifactId>log-extension-agent</artifactId>
-	<name>log-extension-agent</name>
+	<artifactId>log-extension-agent-all</artifactId>
+	<name>log-extension-agent-all</name>
 	<url>http://maven.apache.org</url>
+	<packaging>pom</packaging>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
-	<packaging>pom</packaging>
-	<modules>
-		<module>log-extension-agent-annotation</module>
-		<module>log-extension-agent-domain</module>
-		<module>log-extension-agent-core</module>
-		<module>log-extension-agent-dubbo</module>
-		<module>log-extension-agent-log4j</module>
-		<module>log-extension-agent-jsf</module>
-		<module>log-extension-agent-all</module>
-	</modules>
+	<dependencies>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
 </project>
