@@ -1,5 +1,7 @@
 package io.log.extension.agent.log4j.appender;
 
-public class LogExtensionAppender {
+import org.apache.log4j.RollingFileAppender;
+
+public class LogExtensionAppender extends RollingFileAppender{
 
 }
