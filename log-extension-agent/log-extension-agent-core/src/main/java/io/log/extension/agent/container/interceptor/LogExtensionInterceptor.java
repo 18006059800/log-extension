@@ -20,11 +20,7 @@ public class LogExtensionInterceptor {
 	private Logger log = LoggerFactory.getLogger(this.getClass());
 	private List<Handler> handlers;
 
-	ThreadLocal<Stack<DefaultMessage>> tdm = null;
-
-	public LogExtensionInterceptor() {
-		tdm = new ThreadLocal<Stack<DefaultMessage>>();
-	}
+	ThreadLocal<Stack<DefaultMessage>> tdm = new ThreadLocal<Stack<DefaultMessage>>();
 
 	public List<Handler> getHandlers() {
 		return handlers;
@@ -41,12 +37,15 @@ public class LogExtensionInterceptor {
 
 		if (StringUtils.isEmpty(mdcRootMessageId)) {
 			MDC.put(Constants.MESSAGE_ROOT_ID, messageId);
-			if (null != m) {
-				m.clear();
-			} else {
-				m = new Stack<DefaultMessage>();
-				tdm.set(m);
-			}
+			// if (null != m) {
+			// m.clear();
+			// } else {
+			// m = new Stack<DefaultMessage>();
+			// tdm.set(m);
+			// }
+			m = new Stack<DefaultMessage>();
+			tdm.set(m);
+
 			DefaultMessage dm = new DefaultMessage();
 			dm.setStart(new Date());
 			dm.setMessageId(messageId);
@@ -100,30 +99,19 @@ public class LogExtensionInterceptor {
 	}
 
 	public void doAfter(JoinPoint jp) {
-		// String beginString = MDC.get(Constants.MESSAGE_BEGIN_TIME);
-		// long begin = System.currentTimeMillis();
-		// long end = begin;
-		// if (null != beginString) {
-		// begin = Long.valueOf(beginString);
-		// }
-		// long speed = begin - end;
-		// MDC.put(Constants.MESSAGE_SPEED_TIME, String.valueOf(speed));
-		// String aopClass = jp.getTarget().getClass().getName();
-		// MDC.put(Constants.AOP_CLASS, aopClass);
-		// String aopMethod = jp.getSignature().getName();
-		// MDC.put(Constants.AOP_METHOD, aopMethod);
-		// log.info("拦截器after");
-		//
-		//
 		Stack<DefaultMessage> ms = tdm.get();
-		if (ms.size() > 0) {
-			DefaultMessage dm = ms.pop();
-			dm.setTime(new Date().getTime() - dm.getStart().getTime());
-			log.info(
-					"messageId: {}, parentMessageId: {}, rootMessageId: {}, timeout: {}",
-					dm.getMessageId(), dm.getParentMessageId(),
-					dm.getRootMessageId(), dm.getTime());
-		} else {
+		// if (null == ms) {
+		// log.warn("初始化就有问题");
+		// tdm.remove();
+		// }
+		DefaultMessage dm = ms.pop();
+		dm.setTime(new Date().getTime() - dm.getStart().getTime());
+		log.info(
+				"messageId: {}, parentMessageId: {}, rootMessageId: {}, timeout: {}",
+				dm.getMessageId(), dm.getParentMessageId(),
+				dm.getRootMessageId(), dm.getTime());
+
+		if (ms.size() < 1) {
 			tdm.remove();
 		}
 	}
@@ -131,8 +119,8 @@ public class LogExtensionInterceptor {
 	public void doThrowing(JoinPoint jp, Throwable ex) {
 		Stack<DefaultMessage> ms = tdm.get();
 		ex.printStackTrace();
+		DefaultMessage dm = ms.pop();
 		if (ms.size() > 0) {
-			DefaultMessage dm = ms.pop();
 			dm.setTime(new Date().getTime() - dm.getStart().getTime());
 			log.error(
 					"messageId: {}, parentMessageId: {}, rootMessageId: {}, timeout: {}",
