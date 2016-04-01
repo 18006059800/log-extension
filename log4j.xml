@@ -1,1 +1,119 @@
-log4j.xml
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
+    <appender name="CONSOLE" class="org.apache.log4j.ConsoleAppender">
+    	<layout class="org.apache.log4j.PatternLayout">
+			<param name="conversionPattern" value="%d{yyyy-MMM-dd HH:mm:ss.SSS} – [%7r] – [%6p] – [%t] – [%X{sessionId}] - [%X{platformId}] - [%X{domain}] - [%X{webIp}] - [center=base-center] - [%X{centerIp}] – [%C:%M] - %m%n" />
+		</layout>
+		<filter class="org.apache.log4j.varia.LevelRangeFilter">
+			<param name="levelMin" value="${log.level}" />
+		</filter>
+	</appender>
+
+	<appender name="FILE-ALL" class="org.apache.log4j.DailyRollingFileAppender">
+		<param name="datePattern" value="'.'yyyy-MM-dd" />
+		<param name="append" value="true" />
+		<param name="file" value="${log.path}/all.log" />
+		<param name="encoding" value="UTF-8" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="conversionPattern" value="%d{yyyy-MMM-dd HH:mm:ss.SSS} – [%7r] – [%6p] – [%t] – [%X{sessionId}] - [%X{platformId}] - [%X{domain}] - [%X{webIp}] - [center=base-center] - [%X{centerIp}] – [%C:%M] - %m%n" />
+		</layout>
+		<filter class="org.apache.log4j.varia.LevelRangeFilter">
+			<param name="levelMin" value="${log.level}" />
+			<param name="levelMax" value="WARN" />
+		</filter>
+	</appender>
+	
+	<appender name="FILE-ALL-ERROR" class="org.apache.log4j.DailyRollingFileAppender">
+		<param name="datePattern" value="'.'yyyy-MM-dd" />
+		<param name="append" value="true" />
+		<param name="file" value="${log.path}/all.log" />
+		<param name="encoding" value="UTF-8" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="conversionPattern" value="%d{yyyy-MMM-dd HH:mm:ss.SSS} – [%7r] – [%6p] – [%t] - [%X{sessionId}] - [%X{platformId}] - [%X{domain}] - [%X{webIp}] - [center=base-center] - [%X{centerIp}] – [%C:%M(%F:%L)] - %m%n" />
+		</layout>
+		<filter class="org.apache.log4j.varia.LevelRangeFilter">
+			<param name="levelMin" value="ERROR" />
+		</filter>
+	</appender>
+	
+	<appender name="FILE-BUSSINESS" class="org.apache.log4j.DailyRollingFileAppender">
+		<param name="datePattern" value="'.'yyyy-MM-dd" />
+		<param name="append" value="true" />
+		<param name="file" value="${log.path}/basecenter-bussiness.log" />
+		<param name="encoding" value="UTF-8" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="conversionPattern" value="%d{yyyy-MMM-dd HH:mm:ss.SSS} – [%7r] – [%6p] – [%t] – [%X{sessionId}] - [%X{platformId}] - [%X{domain}] - [%X{webIp}] - [center=base-center] - [%X{centerIp}] – [%C:%M] - %m%n" />
+		</layout>
+		<filter class="org.apache.log4j.varia.LevelRangeFilter">
+			<param name="levelMin" value="${log.level}" />
+		</filter>
+	</appender>
+
+	<appender name="FILE-SQL" class="org.apache.log4j.DailyRollingFileAppender">
+		<param name="datePattern" value="'.'yyyy-MM-dd" />
+		<param name="append" value="true" />
+		<param name="file" value="${log.path}/basecenter-sql.log" />
+		<param name="encoding" value="UTF-8" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="conversionPattern" value="%d{yyyy-MMM-dd HH:mm:ss.SSS} – [%7r] – [%6p] – [%t] – [%X{sessionId}] - [%X{platformId}] - [%X{domain}] - [%X{webIp}] - [center=base-center] - [%X{centerIp}] – [%C:%M] - %m%n" />
+		</layout>
+		<filter class="org.apache.log4j.varia.LevelRangeFilter">
+			<param name="levelMin" value="${log.level}" />
+		</filter>
+	</appender>
+
+	<appender name="iBatis" class="org.apache.log4j.ConsoleAppender">
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="conversionPattern" value="%d{yyyy-MMM-dd HH:mm:ss.SSS} – [%7r] – [%6p] – [%t] – [%X{sessionId}] - [%X{platformId}] - [%X{domain}] - [%X{webIp}] - [center=base-center] - [%X{centerIp}] – [%C:%M] - %m%n" />
+		</layout>
+		<filter class="org.apache.log4j.varia.LevelRangeFilter">
+			<param name="levelMin" value="${log.level}" />
+		</filter>
+	</appender>
+
+	<logger name="org.apache.zookeeper" additivity="false">
+		<level value="ERROR" />
+	</logger>
+
+	<logger name="com.ibatis" additivity="false">
+		<level value="${log.level}" />
+		<appender-ref ref="FILE-SQL" />
+	</logger>
+
+	<logger name="java.sql.Connection" additivity="false">
+		<level value="${log.level}" />
+		<appender-ref ref="FILE-SQL" />
+	</logger>
+
+	<logger name="java.sql.Statement" additivity="false">
+		<level value="${log.level}" />
+		<appender-ref ref="FILE-SQL" />
+	</logger>
+
+	<logger name="java.sql.PreparedStatement" additivity="false">
+		<level value="${log.level}" />
+		<appender-ref ref="FILE-SQL" />
+	</logger>
+
+	<logger name="java.sql.ResultSet" additivity="false">
+		<level value="${log.level}" />
+		<appender-ref ref="FILE-SQL" />
+	</logger>
+
+	<logger name="org.springframework" additivity="true">
+		<level value="WARN" />
+	</logger>
+	
+	<logger name="com.jd.ecc" additivity="true">
+		<level value="${log.level}" />
+		<appender-ref ref="FILE-BUSSINESS" />
+	</logger>
+	
+	<root>
+		<priority value="${log.level}" />
+		<appender-ref ref="CONSOLE" />
+		<appender-ref ref="FILE-ALL" />
+		<appender-ref ref="FILE-ALL-ERROR" />
+	</root>
+</log4j:configuration>
