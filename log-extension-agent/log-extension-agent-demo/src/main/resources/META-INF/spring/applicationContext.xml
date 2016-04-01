@@ -11,8 +11,13 @@
 		<aop:aspect id="logExtensionInterceptorAop" ref="logExtensionInterceptor">
 			<aop:pointcut id="target"
 				expression="execution(* io.log.extension.agent..*.*(..)) " />
+			
 			<aop:before method="doBefore" pointcut-ref="target" />
 			<aop:after-returning method="doAfter" pointcut-ref="target" />
+		
+			<!--  
+			 <aop:around method="doInvoke" pointcut-ref="target" />
+			 -->
 		</aop:aspect>
 	</aop:config>
 </beans>
