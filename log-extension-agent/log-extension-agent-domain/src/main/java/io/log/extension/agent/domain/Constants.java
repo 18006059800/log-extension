@@ -13,4 +13,7 @@ public class Constants {
 	public static final String MESSAGE_END_TIME = "messageEnd";
 	public static final String MESSAGE_SPEED_TIME = "messageSpeed";
 	
+	public static final String AOP_CLASS = "aopClass";
+	public static final String AOP_METHOD = "aopMethod";
+	
 }

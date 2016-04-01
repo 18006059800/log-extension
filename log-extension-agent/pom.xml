@@ -23,5 +23,6 @@
 		<module>log-extension-agent-log4j</module>
 		<module>log-extension-agent-jsf</module>
 		<module>log-extension-agent-all</module>
+		<module>log-extension-agent-demo</module>
 	</modules>
 </project>

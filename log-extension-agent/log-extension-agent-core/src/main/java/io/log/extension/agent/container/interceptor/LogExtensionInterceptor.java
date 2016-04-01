@@ -8,12 +8,15 @@ import java.util.logging.Handler;
 
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.slf4j.MDC;
 import org.springframework.util.StringUtils;
 
 public class LogExtensionInterceptor {
+	private Logger log = LoggerFactory.getLogger(this.getClass());
 	private List<Handler> handlers;
-
+	
 	public List<Handler> getHandlers() {
 		return handlers;
 	}
@@ -39,6 +42,7 @@ public class LogExtensionInterceptor {
 
 		long begin = System.currentTimeMillis();
 		MDC.put(Constants.MESSAGE_BEGIN_TIME, String.valueOf(begin));
+		log.info("before拦截器");
 	}
 
 	public void doInvoke(JoinPoint jp, ProceedingJoinPoint pjp)
@@ -55,6 +59,11 @@ public class LogExtensionInterceptor {
 		}
 		long speed = begin - end;
 		MDC.put(Constants.MESSAGE_SPEED_TIME, String.valueOf(speed));
+		String aopClass = jp.getTarget().getClass().getName();
+		MDC.put(Constants.AOP_CLASS, aopClass);
+		String aopMethod = jp.getSignature().getName();
+		MDC.put(Constants.AOP_METHOD, aopMethod);
+		log.info("拦截器after");
 	}
 
 	public void doThrowing(JoinPoint jp, Throwable ex) {
