@@ -25,7 +25,7 @@ public class SimpleMessage implements Serializable {
 	/**
 	 * 节点的IP地址
 	 */
-	private String ipAddress;
+	private String host;
 	/**
 	 * 消息时间
 	 */
@@ -79,12 +79,12 @@ public class SimpleMessage implements Serializable {
 		this.messageId = messageId;
 	}
 
-	public String getIpAddress() {
-		return ipAddress;
+	public String getHost() {
+		return host;
 	}
 
-	public void setIpAddress(String ipAddress) {
-		this.ipAddress = ipAddress;
+	public void setHost(String host) {
+		this.host = host;
 	}
 
 	public Long getTime() {

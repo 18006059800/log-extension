@@ -37,7 +37,7 @@ public class DefaultMessage implements Serializable {
 	/**
 	 * 当前节点
 	 */
-	private String ip;
+	private String host;
 	/**
 	 * 消息时间
 	 */
@@ -115,12 +115,12 @@ public class DefaultMessage implements Serializable {
 		this.sessionId = sessionId;
 	}
 
-	public String getIp() {
-		return ip;
+	public String getHost() {
+		return host;
 	}
 
-	public void setIp(String ip) {
-		this.ip = ip;
+	public void setHost(String host) {
+		this.host = host;
 	}
 
 	public Long getTime() {

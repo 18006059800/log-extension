@@ -1,26 +1,14 @@
 package io.log.extension.agent.core.interceptor;
 
-import io.log.extension.agent.core.entity.Constants;
-import io.log.extension.agent.core.entity.spi.DefaultMessage;
+import io.log.extension.agent.core.handler.Handler;
 
-import java.util.Date;
 import java.util.List;
-import java.util.Stack;
-import java.util.UUID;
-import java.util.logging.Handler;
 
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.slf4j.MDC;
-import org.springframework.util.StringUtils;
 
 public class LogExtensionInterceptor {
-	private Logger log = LoggerFactory.getLogger(this.getClass());
 	private List<Handler> handlers;
-
-	ThreadLocal<Stack<DefaultMessage>> tdm = new ThreadLocal<Stack<DefaultMessage>>();
 
 	public List<Handler> getHandlers() {
 		return handlers;
@@ -31,41 +19,15 @@ public class LogExtensionInterceptor {
 	}
 
 	public void doBefore(JoinPoint jp) {
-		Stack<DefaultMessage> m = tdm.get();
-		String mdcRootMessageId = MDC.get(Constants.MESSAGE_ROOT_ID);
-		String messageId = UUID.randomUUID().toString();
-		if (StringUtils.isEmpty(mdcRootMessageId)) {
-			MDC.put(Constants.MESSAGE_ROOT_ID, messageId);
-			// if (null != m) {
-			// m.clear();
-			// } else {
-			// m = new Stack<DefaultMessage>();
-			// tdm.set(m);
-			// }
-			m = new Stack<DefaultMessage>();
-			tdm.set(m);
-
-			DefaultMessage dm = new DefaultMessage();
-			dm.setStart(new Date());
-			dm.setMessageId(messageId);
-			dm.setParentMessageId(messageId);
-			dm.setRootMessageId(messageId);
-			m.push(dm);
-		} else {
-			DefaultMessage parentMessage = m.peek();
-			DefaultMessage dm = new DefaultMessage();
-			dm.setStart(new Date());
-			dm.setMessageId(messageId);
-			dm.setParentMessageId(parentMessage.getMessageId());
-			dm.setRootMessageId(mdcRootMessageId);
-			m.push(dm);
+		for (Handler handler : handlers) {
+			handler.doBefore(jp);
 		}
-		// long begin = System.currentTimeMillis();
-		// MDC.put(Constants.MESSAGE_BEGIN_TIME, String.valueOf(begin));
-		// log.info("before拦截器");
 	}
 
 	public void doInvoke(ProceedingJoinPoint pjp) throws Throwable {
+		for (Handler handler : handlers) {
+			handler.doAround(pjp);
+		}
 		//
 		// String mdcMessageId = MDC.get(Constants.MESSAGE_ID);
 		// String mdcRootMessageId = MDC.get(Constants.MESSAGE_ROOT_ID);
@@ -98,35 +60,20 @@ public class LogExtensionInterceptor {
 	}
 
 	public void doAfter(JoinPoint jp) {
-		Stack<DefaultMessage> ms = tdm.get();
-		// if (null == ms) {
-		// log.warn("初始化就有问题");
-		// tdm.remove();
-		// }
-		DefaultMessage dm = ms.pop();
-		dm.setTime(new Date().getTime() - dm.getStart().getTime());
-		log.info(
-				"messageId: {}, parentMessageId: {}, rootMessageId: {}, timeout: {}",
-				dm.getMessageId(), dm.getParentMessageId(),
-				dm.getRootMessageId(), dm.getTime());
+		for (Handler handler : handlers) {
+			handler.doAfter(jp);
+		}
+	}
 
-		if (ms.size() < 1) {
-			tdm.remove();
+	public void doAfterReturning(JoinPoint jp, Object result) {
+		for (Handler handler : handlers) {
+			handler.doAfterReturning(jp, result);
 		}
 	}
 
 	public void doThrowing(JoinPoint jp, Throwable ex) {
-		Stack<DefaultMessage> ms = tdm.get();
-		ex.printStackTrace();
-		DefaultMessage dm = ms.pop();
-		if (ms.size() > 0) {
-			dm.setTime(new Date().getTime() - dm.getStart().getTime());
-			log.error(
-					"messageId: {}, parentMessageId: {}, rootMessageId: {}, timeout: {}",
-					dm.getMessageId(), dm.getParentMessageId(),
-					dm.getRootMessageId(), dm.getTime());
-		} else {
-			tdm.remove();
+		for (Handler handler : handlers) {
+			handler.doThrowing(jp, ex);
 		}
 	}
 

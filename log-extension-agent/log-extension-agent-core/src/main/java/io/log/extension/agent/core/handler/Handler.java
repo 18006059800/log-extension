@@ -1,12 +1,13 @@
 package io.log.extension.agent.core.handler;
 
 import org.aspectj.lang.JoinPoint;
+import org.aspectj.lang.ProceedingJoinPoint;
 
 public interface Handler {
 
 	public void doBefore(JoinPoint jp);
 	
-	public void doAround(JoinPoint jp);
+	public void doAround(ProceedingJoinPoint pjp);
 	
 	public void doAfter(JoinPoint jp);
 	
