@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>io.logx</groupId>
+    <artifactId>log-extension-agent</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+  </parent>
+  <artifactId>log-extension-agent-demo</artifactId>
+  <packaging>pom</packaging>
+  <distributionManagement>
+    <site>
+      <id>website</id>
+      <url>scp://webhost.company.com/www/website</url>
+    </site>
+  </distributionManagement>
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>
+  <modules>
+  	<module>log-extension-agent-demo-simple</module>
+  	<module>log-extension-agent-demo-dubbo-provider</module>
+  	<module>log-extension-agent-demo-dubbo-consumer</module>
+  	<module>log-extension-agent-demo-jsf-provider</module>
+  	<module>log-extension-agent-demo-jsf-consumer</module>
+  	<module>log-extension-agent-demo-api</module>
+  </modules>
+</project>

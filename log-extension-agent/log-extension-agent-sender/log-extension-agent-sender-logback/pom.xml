@@ -5,32 +5,16 @@
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>io.logx</groupId>
-		<artifactId>log-extension-agent</artifactId>
+		<artifactId>log-extension-agent-sender</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
-	<artifactId>log-extension-agent-core</artifactId>
-	<name>log-extension-agent-container</name>
+	<artifactId>log-extension-agent-sender-logback</artifactId>
+	<name>log-extension-agent-sender-logback</name>
 	<url>http://maven.apache.org</url>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
 	<dependencies>
-		<dependency>
-			<groupId>com.alibaba</groupId>
-			<artifactId>dubbo</artifactId>
-			<scope>provided</scope>
-		</dependency>
-
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter</artifactId>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-aop</artifactId>
-			<scope>provided</scope>
-		</dependency>
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
