@@ -16,11 +16,6 @@
 	</properties>
 	<dependencies>
 		<dependency>
-			<groupId>io.logx</groupId>
-			<artifactId>log-extension-agent-domain</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
-		</dependency>
-		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter</artifactId>
 		</dependency>
