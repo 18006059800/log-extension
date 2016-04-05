@@ -16,6 +16,11 @@
 	</properties>
 	<dependencies>
 		<dependency>
+			<groupId>io.logx</groupId>
+			<artifactId>log-extension-agent-core</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
 			<scope>test</scope>

@@ -163,4 +163,14 @@ public class DefaultMessage implements Serializable {
 		this.content = content;
 	}
 
+	@Override
+	public String toString() {
+		return "DefaultMessage [domain=" + domain + ", className=" + className
+				+ ", classMethod=" + classMethod + ", messageId=" + messageId
+				+ ", parentMessageId=" + parentMessageId + ", rootMessageId="
+				+ rootMessageId + ", sessionId=" + sessionId + ", host=" + host
+				+ ", time=" + time + ", start=" + start + ", end=" + end
+				+ ", status=" + status + ", content=" + content + "]";
+	}
+
 }
