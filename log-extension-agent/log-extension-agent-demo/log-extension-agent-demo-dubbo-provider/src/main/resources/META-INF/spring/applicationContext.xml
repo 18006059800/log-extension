@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+	xsi:schemaLocation="http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.1.xsd
+		http://code.alibabatech.com/schema/dubbo http://code.alibabatech.com/schema/dubbo/dubbo.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.1.xsd">
+
+	<dubbo:application name="logx-extension-demo-dubbo-provider" />
+	<!-- 采用直连方式 -->
+	<dubbo:registry address="N/A"/>
+	<dubbo:protocol name="dubbo"  port="20880"/>
+	<dubbo:annotation package="io.log.extension.agent.demo.dubbo.provider" />
+	<dubbo:provider filter="logDubboProviderFilter" />
+	
+	<bean id="log4jSender" class="io.log.extension.agent.sender.log4j.Log4jSender" />
+	<bean id="defaultMessageHandler"
+		class="io.log.extension.agent.core.handler.DefaultMessageHandler">
+		<property name="sender" ref="log4jSender" />
+	</bean>
+	<util:list id="messageHandlers" list-class="java.util.ArrayList">
+		<ref bean="defaultMessageHandler" />
+	</util:list>
+
+	<bean id="logExtensionInterceptor"
+		class="io.log.extension.agent.core.interceptor.LogExtensionInterceptor">
+		<property name="handlers" ref="messageHandlers" />
+	</bean>
+
+	<aop:config>
+		<aop:aspect id="logExtensionInterceptorAop" ref="logExtensionInterceptor">
+			<aop:pointcut id="target"
+				expression="execution(* io.log.extension.agent.demo..*.*(..))"/>
+
+			<aop:before method="doBefore" pointcut-ref="target" />
+			<aop:after method="doAfter" pointcut-ref="target" />
+
+		</aop:aspect>
+	</aop:config>
+
+</beans>

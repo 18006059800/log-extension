@@ -34,6 +34,7 @@ public class DefaultMessageHandler extends AbstractHandler {
 		String messageId = UUID.randomUUID().toString();
 		if (StringUtils.isEmpty(mdcRootMessageId)) {
 			MDC.put(Constants.MESSAGE_ROOT_ID, messageId);
+			MDC.put(Constants.MESSAGE_PARENT_ID, messageId);
 			if (null != sms) {
 				sms.clear();
 			} else {
@@ -51,6 +52,7 @@ public class DefaultMessageHandler extends AbstractHandler {
 			msg.setParentMessageId(parentMessage.getMessageId());
 			msg.setRootMessageId(mdcRootMessageId);
 			sms.push(msg);
+			MDC.put(Constants.MESSAGE_PARENT_ID, messageId);
 		}
 	}
 

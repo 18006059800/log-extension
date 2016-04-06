@@ -1,0 +1,2 @@
+logDubboProviderFilter=io.log.extension.agent.core.filter.DubboProviderFilter
+logDubboConsumerFilter=io.log.extension.agent.core.filter.DubboConsumerFilter
