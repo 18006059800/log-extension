@@ -44,7 +44,7 @@ public abstract class AbstractHandler implements Handler {
 		if (null == msg) {
 			msg = new DefaultMessage();
 		}
-		String className = jp.getSignature().getClass().getName();
+		String className = jp.getTarget().getClass().getName();
 		String methodName = jp.getSignature().getName();
 
 		String domain = PropertiesConfig.getDomain();
