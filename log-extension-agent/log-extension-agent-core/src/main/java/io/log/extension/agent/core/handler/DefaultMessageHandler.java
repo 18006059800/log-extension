@@ -16,6 +16,14 @@ public class DefaultMessageHandler extends AbstractHandler {
 	private ThreadLocal<Stack<DefaultMessage>> tdm = new ThreadLocal<Stack<DefaultMessage>>();
 	private Sender sender;
 
+	public Sender getSender() {
+		return sender;
+	}
+
+	public void setSender(Sender sender) {
+		this.sender = sender;
+	}
+
 	@Override
 	public void doBefore(JoinPoint jp) {
 		DefaultMessage msg = new DefaultMessage();

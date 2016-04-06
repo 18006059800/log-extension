@@ -22,6 +22,8 @@ public class LogExtensionInterceptor {
 		for (Handler handler : handlers) {
 			handler.doBefore(jp);
 		}
+		//System.out.println("=======================" + handlers.size());
+		
 	}
 
 	public void doInvoke(ProceedingJoinPoint pjp) throws Throwable {
@@ -63,6 +65,8 @@ public class LogExtensionInterceptor {
 		for (Handler handler : handlers) {
 			handler.doAfter(jp);
 		}
+		
+		//System.out.println("----------------------------------");
 	}
 
 	public void doAfterReturning(JoinPoint jp, Object result) {
@@ -75,6 +79,7 @@ public class LogExtensionInterceptor {
 		for (Handler handler : handlers) {
 			handler.doThrowing(jp, ex);
 		}
+		//System.out.println("***************************");
 	}
 
 }

@@ -13,6 +13,7 @@ public class TrainingController {
 
 	@RequestMapping("/test")
 	public String test() {
+		trainingService.testService();
 		return "hello-world";
 	}
 }
