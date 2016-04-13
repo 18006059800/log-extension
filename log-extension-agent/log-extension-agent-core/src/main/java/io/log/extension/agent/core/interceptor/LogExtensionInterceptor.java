@@ -1,5 +1,6 @@
 package io.log.extension.agent.core.interceptor;
 
+import io.log.extension.agent.core.config.PropertiesConfig;
 import io.log.extension.agent.core.entity.Constants;
 import io.log.extension.agent.core.entity.spi.DefaultMessage;
 import io.log.extension.agent.core.handler.Handler;
@@ -30,6 +31,19 @@ public class LogExtensionInterceptor {
 	public void doBefore(JoinPoint jp) {
 		DefaultMessage msg = new DefaultMessage();
 
+		String className = jp.getTarget().getClass().getName();
+		String methodName = jp.getSignature().getName();
+
+		String domain = PropertiesConfig.getDomain();
+		String host = PropertiesConfig.getHost();
+		Date start = new Date();
+
+		msg.setClassName(className);
+		msg.setClassMethod(methodName);
+		msg.setStart(start);
+		msg.setDomain(domain);
+		msg.setHost(host);
+		
 		Stack<DefaultMessage> sms = tdm.get();
 		String mdcRootMessageId = MDC.get(Constants.MESSAGE_ROOT_ID);
 		String mdcParentMessageId = MDC.get(Constants.MESSAGE_PARENT_ID);

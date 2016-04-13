@@ -12,6 +12,10 @@ public class ConsumerService {
 	private UserService userService;
 	
 	public void testA() {
-		userService.findAll();
+		
+		for (int i = 0; i < 10; i++) {
+			userService.findAll();			
+		}
+
 	}
 }
