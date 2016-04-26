@@ -19,4 +19,16 @@ public class DefaultMessageHandler implements Handler {
 		sender.send(message);
 	}
 
+	@Override
+	public void init() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void destory() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

@@ -26,8 +26,9 @@
 				expression="execution(* io.log.extension.agent.demo..*.*(..))"/>
 
 			<aop:before method="doBefore" pointcut-ref="target" />
-			<aop:after method="doAfter" pointcut-ref="target" />
-
+			<aop:after-returning method="doAfter" pointcut-ref="target" />
+			<aop:after-throwing method="doThrowing" pointcut-ref="target"  throwing="ex"/>
+			
 		</aop:aspect>
 	</aop:config>
 

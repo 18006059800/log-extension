@@ -43,7 +43,7 @@ public class LogExtensionInterceptor {
 		msg.setStart(start);
 		msg.setDomain(domain);
 		msg.setHost(host);
-		
+
 		Stack<DefaultMessage> sms = tdm.get();
 		String mdcRootMessageId = MDC.get(Constants.MESSAGE_ROOT_ID);
 		String mdcParentMessageId = MDC.get(Constants.MESSAGE_PARENT_ID);
@@ -95,13 +95,17 @@ public class LogExtensionInterceptor {
 		dm.setTime(new Date().getTime() - dm.getStart().getTime());
 		dm.setStatus(Constants.MESSAGE_STATUS_OK);
 
-		if (ms.size() < 1) {
-			tdm.remove();
-		}
-
 		for (Handler handler : handlers) {
 			handler.doHandle(dm);
 		}
+
+		if (ms.size() < 1) {
+			tdm.remove();
+			for (Handler handler : handlers) {
+				handler.destory();
+			}
+		}
+
 	}
 
 	public void doAfterReturning(JoinPoint jp, Object result) {
@@ -119,12 +123,15 @@ public class LogExtensionInterceptor {
 		dm.setTime(new Date().getTime() - dm.getStart().getTime());
 		dm.setStatus(Constants.MESSAGE_STATUS_FAIL);
 		dm.setContent(ex.toString());
-		if (ms.size() < 1) {
-			tdm.remove();
-		}
-
 		for (Handler handler : handlers) {
 			handler.doHandle(dm);
+		}
+
+		if (ms.size() < 1) {
+			tdm.remove();
+			for (Handler handler : handlers) {
+				handler.destory();
+			}
 		}
 	}
 

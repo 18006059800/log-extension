@@ -9,4 +9,16 @@ public class StatisticsMessageHandler implements Handler{
 		
 	}
 
+	@Override
+	public void init() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void destory() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }
