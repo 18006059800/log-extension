@@ -27,6 +27,10 @@ public class DefaultMessage implements Serializable {
 	 */
 	private String parentMessageId;
 	/**
+	 * 当前项目根消息
+	 */
+	private String currentRootMessageId;
+	/**
 	 * 根消息
 	 */
 	private String rootMessageId;
@@ -58,6 +62,22 @@ public class DefaultMessage implements Serializable {
 	 * 内容
 	 */
 	private String content;
+	/**
+	 * 是否是根消息
+	 */
+	private Boolean isRootMessage;
+	/**
+	 * 消息链是否有异常
+	 */
+	private Boolean hasError;
+	/**
+	 * 根消息类名称
+	 */
+	private String rootClassName;
+	/**
+	 * 根消息方法名
+	 */
+	private String rootMethodName;
 
 	public String getDomain() {
 		return domain;
@@ -97,6 +117,14 @@ public class DefaultMessage implements Serializable {
 
 	public void setParentMessageId(String parentMessageId) {
 		this.parentMessageId = parentMessageId;
+	}
+
+	public String getCurrentRootMessageId() {
+		return currentRootMessageId;
+	}
+
+	public void setCurrentRootMessageId(String currentRootMessageId) {
+		this.currentRootMessageId = currentRootMessageId;
 	}
 
 	public String getRootMessageId() {
@@ -163,14 +191,50 @@ public class DefaultMessage implements Serializable {
 		this.content = content;
 	}
 
+	public Boolean getIsRootMessage() {
+		return isRootMessage;
+	}
+
+	public void setIsRootMessage(Boolean isRootMessage) {
+		this.isRootMessage = isRootMessage;
+	}
+
+	public Boolean getHasError() {
+		return hasError;
+	}
+
+	public void setHasError(Boolean hasError) {
+		this.hasError = hasError;
+	}
+
+	public String getRootClassName() {
+		return rootClassName;
+	}
+
+	public void setRootClassName(String rootClassName) {
+		this.rootClassName = rootClassName;
+	}
+
+	public String getRootMethodName() {
+		return rootMethodName;
+	}
+
+	public void setRootMethodName(String rootMethodName) {
+		this.rootMethodName = rootMethodName;
+	}
+
 	@Override
 	public String toString() {
 		return "DefaultMessage [domain=" + domain + ", className=" + className
 				+ ", classMethod=" + classMethod + ", messageId=" + messageId
-				+ ", parentMessageId=" + parentMessageId + ", rootMessageId="
-				+ rootMessageId + ", sessionId=" + sessionId + ", host=" + host
-				+ ", time=" + time + ", start=" + start + ", end=" + end
-				+ ", status=" + status + ", content=" + content + "]";
+				+ ", parentMessageId=" + parentMessageId
+				+ ", currentRootMessageId=" + currentRootMessageId
+				+ ", rootMessageId=" + rootMessageId + ", sessionId="
+				+ sessionId + ", host=" + host + ", time=" + time + ", start="
+				+ start + ", end=" + end + ", status=" + status + ", content="
+				+ content + ", isRootMessage=" + isRootMessage + ", hasError="
+				+ hasError + ", rootClassName=" + rootClassName
+				+ ", rootMethodName=" + rootMethodName + "]";
 	}
 
 }

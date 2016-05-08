@@ -21,15 +21,14 @@ public class DubboProviderFilter implements Filter {
 			throws RpcException {
 		RpcContext context = RpcContext.getContext();
 		String rootMessageId = context.getAttachment(Constants.MESSAGE_ROOT_ID);
-		String parentMessageId = context
-				.getAttachment(Constants.MESSAGE_PARENT_ID);
+		String currentRootMessageId = UUID.randomUUID().toString();
 		if (StringUtils.isEmpty(rootMessageId)) {
 			rootMessageId = UUID.randomUUID().toString();
-			parentMessageId = rootMessageId;
+			currentRootMessageId = rootMessageId;
 		}
 		MDC.put(Constants.MESSAGE_ROOT_ID, rootMessageId);
-		MDC.put(Constants.MESSAGE_PARENT_ID, parentMessageId);
-
+		MDC.put(Constants.MESSAGE_CURRENT_ROOT_ID, currentRootMessageId);
+		MDC.put(Constants.MESSAGE_PARENT_ID, currentRootMessageId);
 		return invoker.invoke(invocation);
 	}
 

@@ -3,41 +3,40 @@ package io.log.extension.agent.core.handler;
 import io.log.extension.agent.core.entity.Staticstics;
 
 import java.util.Map;
-import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
-
-import com.alibaba.dubbo.common.utils.ConcurrentHashSet;
 
 public class StorageConcurrentMap {
 	private static StorageConcurrentMap storage = new StorageConcurrentMap();
-	private Set<String> blanks = new ConcurrentHashSet<String>();
-	private Map<Class<?>, Set<String>> root = new ConcurrentHashMap<Class<?>, Set<String>>();
+	private Map<String, Boolean> root = new ConcurrentHashMap<String, Boolean>();
 	private Map<Integer, Staticstics> staticstics = new ConcurrentHashMap<Integer, Staticstics>();
 
 	private StorageConcurrentMap() {
 
 	}
 
-	public Set<String> getBlanks() {
-		return blanks;
+	public Map<String, Boolean> getRoot() {
+		return root;
 	}
 
-	public void setBlanks(Set<String> blanks) {
-		this.blanks = blanks;
+	public void setRoot(Map<String, Boolean> root) {
+		this.root = root;
 	}
 
-	public Boolean isContains(Class<?> classType, String method) {
-		boolean hasClass = root.containsKey(classType);
-		if (!hasClass) {
-			return false;
-		}
+	/**
+	 * 添加类名称和方法名
+	 * 
+	 * @param classNameAndMethodName
+	 */
+	public void addRootClassMethod(String classNameAndMethodName) {
+		root.put(classNameAndMethodName, true);
+	}
 
-		Set<String> methods = root.get(classType);
-		if (methods.contains(method)) {
-			return true;
-		}
+	public Map<Integer, Staticstics> getStaticstics() {
+		return staticstics;
+	}
 
-		return false;
+	public void setStaticstics(Map<Integer, Staticstics> staticstics) {
+		this.staticstics = staticstics;
 	}
 
 	public void remove(Integer time) {

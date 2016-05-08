@@ -21,7 +21,6 @@ public class DubboConsumerFilter implements Filter {
 			throws RpcException {
 		String rootMessageId = MDC.get(Constants.MESSAGE_ROOT_ID);
 		String parentMessageId = MDC.get(Constants.MESSAGE_PARENT_ID);
-		MDC.put("aa", "bb");
 		
 		if (StringUtils.isEmpty(rootMessageId)) {
 			rootMessageId = UUID.randomUUID().toString();

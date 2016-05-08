@@ -46,21 +46,42 @@ public class LogExtensionInterceptor {
 
 		Stack<DefaultMessage> sms = tdm.get();
 		String mdcRootMessageId = MDC.get(Constants.MESSAGE_ROOT_ID);
+		String mdcCurentRootMessageId = MDC
+				.get(Constants.MESSAGE_CURRENT_ROOT_ID);
 		String mdcParentMessageId = MDC.get(Constants.MESSAGE_PARENT_ID);
+
+		String mdcRootClassName = MDC.get(Constants.AOP_ROOT_CLASS);
+		String mdcRootMethodName = MDC.get(Constants.AOP_ROOT_METHOD);
+
 		String messageId = UUID.randomUUID().toString();
 		if (StringUtils.isEmpty(mdcRootMessageId)) {
 			MDC.put(Constants.MESSAGE_ROOT_ID, messageId);
+			MDC.put(Constants.MESSAGE_CURRENT_ROOT_ID, messageId);
 			MDC.put(Constants.MESSAGE_PARENT_ID, messageId);
+
+			MDC.put(Constants.AOP_ROOT_CLASS, className);
+			MDC.put(Constants.AOP_ROOT_METHOD, methodName);
+
 			if (null != sms) {
 				sms.clear();
 			} else {
 				sms = new Stack<DefaultMessage>();
 				tdm.set(sms);
 			}
+			msg.setRootClassName(className);
+			msg.setRootMethodName(methodName);
 
+			msg.setIsRootMessage(true);
 			msg.setMessageId(messageId);
-			msg.setParentMessageId(messageId);
 			msg.setRootMessageId(messageId);
+			if (StringUtils.isEmpty(mdcCurentRootMessageId)) {
+				msg.setCurrentRootMessageId(messageId);
+				msg.setParentMessageId(messageId);
+			} else {
+				msg.setCurrentRootMessageId(mdcCurentRootMessageId);
+				msg.setParentMessageId(mdcCurentRootMessageId);
+			}
+
 			msg.setStart(new Date());
 			sms.push(msg);
 		} else {
@@ -69,9 +90,16 @@ public class LogExtensionInterceptor {
 				tdm.set(sms);
 			} else {
 				DefaultMessage parentMessage = sms.peek();
+				mdcCurentRootMessageId = parentMessage
+						.getCurrentRootMessageId();
 				mdcParentMessageId = parentMessage.getMessageId();
 			}
+			msg.setRootClassName(mdcRootClassName);
+			msg.setRootMethodName(mdcRootMethodName);
+
+			msg.setIsRootMessage(false);
 			msg.setMessageId(messageId);
+			msg.setCurrentRootMessageId(mdcCurentRootMessageId);
 			msg.setParentMessageId(mdcParentMessageId);
 			msg.setRootMessageId(mdcRootMessageId);
 			msg.setStart(new Date());
@@ -89,6 +117,7 @@ public class LogExtensionInterceptor {
 		Stack<DefaultMessage> ms = tdm.get();
 		if (null == ms) {
 			tdm.remove();
+			return;
 		}
 		DefaultMessage dm = ms.pop();
 
@@ -99,7 +128,7 @@ public class LogExtensionInterceptor {
 			handler.doHandle(dm);
 		}
 
-		if (ms.size() < 1) {
+		if (dm.getIsRootMessage() || ms.size() < 1) {
 			tdm.remove();
 			for (Handler handler : handlers) {
 				handler.destory();
@@ -123,11 +152,14 @@ public class LogExtensionInterceptor {
 		dm.setTime(new Date().getTime() - dm.getStart().getTime());
 		dm.setStatus(Constants.MESSAGE_STATUS_FAIL);
 		dm.setContent(ex.toString());
+		dm.setHasError(true);
+		DefaultMessage parentMessage = ms.peek();
+		parentMessage.setHasError(true);
 		for (Handler handler : handlers) {
 			handler.doHandle(dm);
 		}
 
-		if (ms.size() < 1) {
+		if (dm.getIsRootMessage() || ms.size() < 1) {
 			tdm.remove();
 			for (Handler handler : handlers) {
 				handler.destory();
