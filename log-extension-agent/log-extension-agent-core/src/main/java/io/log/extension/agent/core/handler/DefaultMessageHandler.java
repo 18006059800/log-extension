@@ -30,7 +30,7 @@ public class DefaultMessageHandler extends AbstractMessageHandler {
 
 		if (root.containsKey(classNameAndMethodName)) {
 			Boolean status = root.get(classNameAndMethodName);
-			if (!status) {
+			if (status) {
 				sender.send(message);
 				if (isRoot) { // 根消息
 					root.put(classNameAndMethodName, hasError); // 根消息状态加入

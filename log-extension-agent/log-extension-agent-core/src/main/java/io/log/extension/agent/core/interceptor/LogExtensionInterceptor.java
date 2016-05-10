@@ -55,7 +55,7 @@ public class LogExtensionInterceptor {
 		String mdcRootMethodName = MDC.get(Constants.AOP_ROOT_METHOD);
 
 		String messageId = UUID.randomUUID().toString();
-		if (StringUtils.isEmpty(mdcRootMessageId)) {
+		if (StringUtils.isEmpty(mdcRootMessageId)) { // 如果mdcRootMessageId，肯定是根消息,所有都相同。
 			MDC.put(Constants.MESSAGE_ROOT_ID, messageId);
 			MDC.put(Constants.MESSAGE_CURRENT_ROOT_ID, messageId);
 			MDC.put(Constants.MESSAGE_PARENT_ID, messageId);
@@ -88,15 +88,27 @@ public class LogExtensionInterceptor {
 			if (null == sms) {
 				sms = new Stack<DefaultMessage>();
 				tdm.set(sms);
+			} 
+			// else {
+			// DefaultMessage parentMessage = sms.peek();
+			// if (null != parentMessage) {
+			// mdcParentMessageId = parentMessage.getMessageId();
+			// }
+			// }
+			
+			if (mdcParentMessageId.equals(mdcCurentRootMessageId)) { // 通过JSF/Dubbo时候，如果mdcParentMessageId == mdcCurentRootMessageId也认为是根消息
+				msg.setIsRootMessage(true);
+				msg.setRootClassName(className);
+				msg.setRootMethodName(methodName);
+				
+				MDC.put(Constants.AOP_ROOT_CLASS, className);
+				MDC.put(Constants.AOP_ROOT_METHOD, methodName);
 			} else {
-				DefaultMessage parentMessage = sms.peek();
-				mdcCurentRootMessageId = parentMessage
-						.getCurrentRootMessageId();
-				mdcParentMessageId = parentMessage.getMessageId();
+				msg.setIsRootMessage(false);
+				msg.setRootClassName(mdcRootClassName);
+				msg.setRootMethodName(mdcRootMethodName);
 			}
-			msg.setRootClassName(mdcRootClassName);
-			msg.setRootMethodName(mdcRootMethodName);
-			msg.setIsRootMessage(false);
+			
 			msg.setMessageId(messageId);
 			msg.setCurrentRootMessageId(mdcCurentRootMessageId);
 			msg.setParentMessageId(mdcParentMessageId);

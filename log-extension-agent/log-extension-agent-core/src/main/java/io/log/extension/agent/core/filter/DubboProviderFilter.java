@@ -21,7 +21,7 @@ public class DubboProviderFilter implements Filter {
 			throws RpcException {
 		RpcContext context = RpcContext.getContext();
 		String rootMessageId = context.getAttachment(Constants.MESSAGE_ROOT_ID);
-		String currentRootMessageId = UUID.randomUUID().toString();
+		String currentRootMessageId = context.getAttachment(Constants.MESSAGE_PARENT_ID);
 		if (StringUtils.isEmpty(rootMessageId)) {
 			rootMessageId = UUID.randomUUID().toString();
 			currentRootMessageId = rootMessageId;
