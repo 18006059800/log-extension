@@ -43,7 +43,8 @@ public class LogExtensionInterceptor {
 		msg.setStart(start);
 		msg.setDomain(domain);
 		msg.setHost(host);
-
+		msg.setHasError(false);
+		
 		Stack<DefaultMessage> sms = tdm.get();
 		String mdcRootMessageId = MDC.get(Constants.MESSAGE_ROOT_ID);
 		String mdcCurentRootMessageId = MDC
@@ -81,7 +82,6 @@ public class LogExtensionInterceptor {
 				msg.setCurrentRootMessageId(mdcCurentRootMessageId);
 				msg.setParentMessageId(mdcCurentRootMessageId);
 			}
-
 			msg.setStart(new Date());
 			sms.push(msg);
 		} else {
@@ -96,7 +96,6 @@ public class LogExtensionInterceptor {
 			}
 			msg.setRootClassName(mdcRootClassName);
 			msg.setRootMethodName(mdcRootMethodName);
-
 			msg.setIsRootMessage(false);
 			msg.setMessageId(messageId);
 			msg.setCurrentRootMessageId(mdcCurentRootMessageId);

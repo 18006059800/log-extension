@@ -18,30 +18,30 @@ public class DefaultMessageHandler extends AbstractMessageHandler {
 
 	@Override
 	public void doHandle(DefaultMessage message) {
-		
+
 		// 有错误发送；根消息的状态来记录
-		StorageConcurrentMap storage = StorageConcurrentMap.getInstance();
-		Map<String, Boolean> root = storage.getRoot();
+//		StorageConcurrentMap storage = StorageConcurrentMap.
+		Map<String, Boolean> root = StorageConcurrentMap.getRoot();
 		String classNameAndMethodName = message.getRootClassName() + "-"
 				+ message.getRootMethodName();
+
+		Boolean hasError = message.getHasError();
+		Boolean isRoot = message.getIsRootMessage();
+
 		if (root.containsKey(classNameAndMethodName)) {
 			Boolean status = root.get(classNameAndMethodName);
-			Boolean hasError = message.getHasError();
 			if (!status) {
 				sender.send(message);
-				if (!hasError) {
-					root.put(classNameAndMethodName, hasError);
+				if (isRoot) { // 根消息
+					root.put(classNameAndMethodName, hasError); // 根消息状态加入
 				}
 			}
-			return;
+		} else {
+			sender.send(message);
+			if (isRoot) { // 根消息
+				root.put(classNameAndMethodName, hasError); // 根消息状态加入
+			}
 		}
-		
-		sender.send(message);
-//		root.put(classNameAndMethodName, value);
-		
-		message.getIsRootMessage();
-
 	}
-
 
 }
