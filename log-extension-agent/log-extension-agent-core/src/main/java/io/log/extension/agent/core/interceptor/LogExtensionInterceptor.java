@@ -44,7 +44,7 @@ public class LogExtensionInterceptor {
 		msg.setDomain(domain);
 		msg.setHost(host);
 		msg.setHasError(false);
-		
+
 		Stack<DefaultMessage> sms = tdm.get();
 		String mdcRootMessageId = MDC.get(Constants.MESSAGE_ROOT_ID);
 		String mdcCurentRootMessageId = MDC
@@ -88,19 +88,21 @@ public class LogExtensionInterceptor {
 			if (null == sms) {
 				sms = new Stack<DefaultMessage>();
 				tdm.set(sms);
-			} 
-			// else {
-			// DefaultMessage parentMessage = sms.peek();
-			// if (null != parentMessage) {
-			// mdcParentMessageId = parentMessage.getMessageId();
-			// }
-			// }
-			
-			if (mdcParentMessageId.equals(mdcCurentRootMessageId)) { // 通过JSF/Dubbo时候，如果mdcParentMessageId == mdcCurentRootMessageId也认为是根消息
+			} else {
+				DefaultMessage parentMessage = sms.peek();
+				if (null != parentMessage) {
+					mdcParentMessageId = parentMessage.getMessageId();
+				}
+			}
+
+			if (mdcParentMessageId.equals(mdcCurentRootMessageId)
+					&& !mdcCurentRootMessageId.equals(mdcRootMessageId)) {
+				// 通过JSF/Dubbo时候，如果mdcParentMessageId==
+				// mdcCurentRootMessageId也认为是根消息
 				msg.setIsRootMessage(true);
 				msg.setRootClassName(className);
 				msg.setRootMethodName(methodName);
-				
+
 				MDC.put(Constants.AOP_ROOT_CLASS, className);
 				MDC.put(Constants.AOP_ROOT_METHOD, methodName);
 			} else {
@@ -108,7 +110,7 @@ public class LogExtensionInterceptor {
 				msg.setRootClassName(mdcRootClassName);
 				msg.setRootMethodName(mdcRootMethodName);
 			}
-			
+
 			msg.setMessageId(messageId);
 			msg.setCurrentRootMessageId(mdcCurentRootMessageId);
 			msg.setParentMessageId(mdcParentMessageId);

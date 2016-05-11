@@ -6,7 +6,7 @@ import org.springframework.stereotype.Repository;
 public class TrainingRepo {
 
 	public void test() {
-		throw new RuntimeException("============");
+		// throw new RuntimeException("============");
 	}
 
 }
