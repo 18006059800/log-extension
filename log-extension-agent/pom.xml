@@ -16,7 +16,6 @@
 	<packaging>pom</packaging>
 	<modules>
 		<module>log-extension-agent-core</module>
-		<module>log-extension-agent-sender</module>
 		<module>log-extension-agent-demo</module>
 	</modules>
 
