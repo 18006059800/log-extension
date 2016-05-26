@@ -17,7 +17,7 @@
 	<dependencies>
 		<dependency>
 			<groupId>io.logx</groupId>
-			<artifactId>log-extension-agent-core</artifactId>
+			<artifactId>log-extension-agent</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 		<dependency>

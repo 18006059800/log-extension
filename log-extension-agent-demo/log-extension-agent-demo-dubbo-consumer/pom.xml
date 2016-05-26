@@ -23,7 +23,7 @@
 
 		<dependency>
 			<groupId>io.logx</groupId>
-			<artifactId>log-extension-agent-sender-log4j</artifactId>
+			<artifactId>log-extension-agent</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 
