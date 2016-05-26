@@ -7,7 +7,7 @@
     <version>0.0.1-SNAPSHOT</version>
   </parent>
   <artifactId>log-extension-console</artifactId>
-  <packaging>pom</packaging>
+  <packaging>jar</packaging>
   <distributionManagement>
     <site>
       <id>website</id>
@@ -17,10 +17,11 @@
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
-  <modules>
-    <module>log-extension-console-api</module>
-    <module>log-extension-console-repo</module>
-    <module>log-extension-console-service</module>
-    <module>log-extension-console-web</module>
-  </modules>
+  <dependencies>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
 </project>

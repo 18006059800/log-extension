@@ -9,7 +9,7 @@
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
 	<artifactId>log-extension-server</artifactId>
-	<packaging>pom</packaging>
+	<packaging>jar</packaging>
 	<distributionManagement>
 		<site>
 			<id>website</id>
@@ -19,9 +19,11 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
-	<modules>
-		<module>log-extension-server-api</module>
-		<module>log-extension-server-repo</module>
-		<module>log-extension-server-core</module>
-	</modules>
+	<dependencies>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
 </project>
