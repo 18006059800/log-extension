@@ -71,6 +71,7 @@
 		<module>log-extension-agent</module>
 		<module>log-extension-server</module>
 		<module>log-extension-console</module>
+		<module>log-extension-agent-demo</module>
 	</modules>
 	<dependencyManagement>
 		<dependencies>
