@@ -20,7 +20,7 @@ public class DefaultMessageHandler extends AbstractMessageHandler {
 	public void doHandle(DefaultMessage message) {
 
 		// 有错误发送；根消息的状态来记录
-//		StorageConcurrentMap storage = StorageConcurrentMap.
+		// StorageConcurrentMap storage = StorageConcurrentMap.
 		Map<String, Boolean> root = StorageConcurrentMap.getRoot();
 		String classNameAndMethodName = message.getRootClassName() + "-"
 				+ message.getRootMethodName();
@@ -31,16 +31,16 @@ public class DefaultMessageHandler extends AbstractMessageHandler {
 		if (root.containsKey(classNameAndMethodName)) {
 			Boolean rootHasError = root.get(classNameAndMethodName);
 			if (rootHasError) {
-				sender.send(message);
 				if (isRoot) { // 根消息
 					root.put(classNameAndMethodName, hasError); // 根消息状态加入
 				}
+				sender.send(message);
 			}
 		} else {
-			sender.send(message);
 			if (isRoot) { // 根消息
 				root.put(classNameAndMethodName, hasError); // 根消息状态加入
 			}
+			sender.send(message);
 		}
 	}
 

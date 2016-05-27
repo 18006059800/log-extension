@@ -10,13 +10,21 @@
 			<param name="levelMin" value="info" />
 		</filter>
 	</appender>
-	
+
 	<appender name="logx" class="org.apache.log4j.ConsoleAppender">
 		<layout class="org.apache.log4j.PatternLayout">
-			<param name="conversionPattern"
-				value="### - %d{yyyy-MMM-dd HH:mm:ss.SSS} – %m%n" />
+			<param name="conversionPattern" value="%m%n" />
 		</layout>
 	</appender>
+
+	<appender name="kafka" class="kafka.producer.KafkaLog4jAppender">
+	
+	</appender>
+	<logger name="io.log.extension.agent.core.sender.Log4jSender" additivity="false">
+		<priority value="info" />
+		<appender-ref ref="logx" />
+	</logger>
+
 	<root>
 		<priority value="info" />
 		<appender-ref ref="logx" />
