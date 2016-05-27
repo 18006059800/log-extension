@@ -16,7 +16,7 @@
 	<dubbo:annotation package="io.log.extension.agent.demo.dubbo.consumer" />
 	<dubbo:consumer filter="logDubboConsumerFilter" />
 	
-	<bean id="log4jSender" class="io.log.extension.agent.sender.log4j.Log4jSender" />
+	<bean id="log4jSender" class="io.log.extension.agent.core.sender.Log4jSender" />
 	<bean id="defaultMessageHandler"
 		class="io.log.extension.agent.core.handler.DefaultMessageHandler">
 		<property name="sender" ref="log4jSender" />

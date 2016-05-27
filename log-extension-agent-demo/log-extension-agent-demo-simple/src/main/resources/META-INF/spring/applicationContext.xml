@@ -6,7 +6,7 @@
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
 		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.1.xsd">
 
-	<bean id="log4jSender" class="io.log.extension.agent.sender.log4j.Log4jSender" />
+	<bean id="log4jSender" class="io.log.extension.agent.core.sender.Log4jSender" />
 	<bean id="defaultMessageHandler"
 		class="io.log.extension.agent.core.handler.DefaultMessageHandler">
 		<property name="sender" ref="log4jSender" />
