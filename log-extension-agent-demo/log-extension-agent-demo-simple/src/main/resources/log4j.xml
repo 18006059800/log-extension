@@ -10,14 +10,13 @@
 			<param name="levelMin" value="info" />
 		</filter>
 	</appender>
-
+	
 	<appender name="logx" class="org.apache.log4j.ConsoleAppender">
 		<layout class="org.apache.log4j.PatternLayout">
 			<param name="conversionPattern"
 				value="### - %d{yyyy-MMM-dd HH:mm:ss.SSS} – %m%n" />
 		</layout>
 	</appender>
-	
 	<root>
 		<priority value="info" />
 		<appender-ref ref="logx" />
