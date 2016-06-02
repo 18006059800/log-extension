@@ -1,78 +1,105 @@
-package io.log.extension.agent.core.entity.spi;
+package io.log.extension.server.entity;
 
 import java.io.Serializable;
 import java.util.Date;
 
+import org.springframework.data.annotation.Id;
+import org.springframework.data.elasticsearch.annotations.Document;
+import org.springframework.data.elasticsearch.annotations.Field;
+import org.springframework.data.elasticsearch.annotations.FieldIndex;
+import org.springframework.data.elasticsearch.annotations.FieldType;
+
+@Document(indexName = "logx", type = "defaultMessage", shards = 5, replicas = 0, refreshInterval = "-1")
 public class DefaultMessage implements Serializable {
 
 	private static final long serialVersionUID = 1L;
+	@Id
+	private Long id;
 	/**
 	 * 上下文
 	 */
+	@Field(store = true, index = FieldIndex.not_analyzed)
 	private String domain;
 	/**
 	 * 类名称
 	 */
+	@Field(store = true, index = FieldIndex.not_analyzed)
 	private String className;
 	/**
 	 * 方法名
 	 */
+	@Field(store = true, index = FieldIndex.not_analyzed)
 	private String classMethod;
 	/**
 	 * 当前消息
 	 */
+	@Field(store = true, index = FieldIndex.not_analyzed)
 	private String messageId;
 	/**
 	 * 父消息
 	 */
+	@Field(store = true, index = FieldIndex.not_analyzed)
 	private String parentMessageId;
 	/**
 	 * 当前项目根消息
 	 */
+	@Field(store = true, index = FieldIndex.not_analyzed)
 	private String currentRootMessageId;
 	/**
 	 * 根消息
 	 */
+	@Field(store = true, index = FieldIndex.not_analyzed)
 	private String rootMessageId;
+
 	/**
 	 * 当前节点
 	 */
+	@Field(store = true, index = FieldIndex.not_analyzed, type =FieldType.Ip)
 	private String host;
 	/**
 	 * 消息时间
 	 */
+	@Field(store = true, index = FieldIndex.not_analyzed)
 	private Long time;
 	/**
 	 * 开始时间
 	 */
+	@Field(store = true, index = FieldIndex.not_analyzed, type = FieldType.Date)
 	private Date start;
 	/**
 	 * 结束时间
 	 */
+	@Field(store = true, index = FieldIndex.not_analyzed, type = FieldType.Date)
 	private Date end;
 	/**
 	 * 状态
 	 */
+	@Field(store = true, index = FieldIndex.not_analyzed)
 	private String status;
 	/**
 	 * 内容
 	 */
+	@Field(store = true, index = FieldIndex.not_analyzed)
 	private String content;
 	/**
 	 * 是否是根消息
 	 */
+	@Field(store = true, index = FieldIndex.not_analyzed)
 	private Boolean isRootMessage;
 	/**
 	 * 消息链是否有异常
 	 */
+	@Field(store = true, index = FieldIndex.not_analyzed)
 	private Boolean hasError;
 	/**
 	 * 根消息类名称
 	 */
+	@Field(store = true, index = FieldIndex.not_analyzed)
 	private String rootClassName;
 	/**
 	 * 根消息方法名
 	 */
+	@Field(store = true, index = FieldIndex.not_analyzed)
 	private String rootMethodName;
 
 	public String getDomain() {
@@ -209,19 +236,6 @@ public class DefaultMessage implements Serializable {
 
 	public void setRootMethodName(String rootMethodName) {
 		this.rootMethodName = rootMethodName;
-	}
-
-	@Override
-	public String toString() {
-		return "DefaultMessage [domain=" + domain + ", className=" + className
-				+ ", classMethod=" + classMethod + ", messageId=" + messageId
-				+ ", parentMessageId=" + parentMessageId
-				+ ", currentRootMessageId=" + currentRootMessageId
-				+ ", rootMessageId=" + rootMessageId + ", host=" + host + ", time=" + time + ", start="
-				+ start + ", end=" + end + ", status=" + status + ", content="
-				+ content + ", isRootMessage=" + isRootMessage + ", hasError="
-				+ hasError + ", rootClassName=" + rootClassName
-				+ ", rootMethodName=" + rootMethodName + "]";
 	}
 
 }

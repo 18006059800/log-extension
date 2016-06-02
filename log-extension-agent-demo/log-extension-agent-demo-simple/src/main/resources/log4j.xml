@@ -17,16 +17,27 @@
 		</layout>
 	</appender>
 
-	<appender name="kafka" class="kafka.producer.KafkaLog4jAppender">
-	
+	<appender name="kafka"
+		class="org.apache.kafka.log4jappender.KafkaLog4jAppender">
+		<param name="topic" value="test" />
+		<param name="brokerList" value="localhost:9092" />
+		<param name="compressionType" value="none" />
+		<param name="syncSend" value="false" />
+		<param name="requiredNumAcks" value="0" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="conversionPattern" value="%m%n" />
+		</layout>
 	</appender>
-	<logger name="io.log.extension.agent.core.sender.Log4jSender" additivity="false">
+
+	<logger name="io.log.extension.agent.core.sender.Log4jSender"
+		additivity="false">
 		<priority value="info" />
-		<appender-ref ref="logx" />
+		<appender-ref ref="kafka" />
 	</logger>
 
 	<root>
 		<priority value="info" />
 		<appender-ref ref="logx" />
 	</root>
+
 </log4j:configuration>
