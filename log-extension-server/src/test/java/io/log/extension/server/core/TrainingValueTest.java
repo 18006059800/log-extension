@@ -14,11 +14,20 @@ import org.springframework.test.context.junit4.SpringRunner;
 public class TrainingValueTest {
 	@Autowired
 	private KafkaConsumerService kafkaConsumerService;
-	@Value("${kafka.topic}")
+	@Value("${kafka.topics}")
 	private String server;
 	@Test
 	public void test() {
 		System.out.println("==============================" + (kafkaConsumerService == null) + server);
 	}
-	
+
+	@Test
+	public void testJson() {
+		String str = "{\"dkfj\"}";
+
+		if (str.startsWith("{") && str.endsWith("}")) {
+			System.out.println("=================json");
+		}
+
+	}
 }
