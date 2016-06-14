@@ -31,13 +31,13 @@
 
 	<logger name="io.log.extension.agent.core.sender.Log4jSender"
 		additivity="false">
-		<priority value="info" />
+		<level value="info" />
 		<appender-ref ref="kafka" />
 	</logger>
 
 	<root>
 		<priority value="info" />
-		<appender-ref ref="logx" />
+		<appender-ref ref="kafka" />
 	</root>
 
 </log4j:configuration>

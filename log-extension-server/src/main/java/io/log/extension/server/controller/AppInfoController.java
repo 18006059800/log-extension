@@ -1,7 +1,7 @@
 package io.log.extension.server.controller;
 
 import io.log.extension.server.entity.DefaultMessage;
-import io.log.extension.server.entity.App;
+import io.log.extension.server.entity.Domain;
 import io.log.extension.server.service.MessageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -27,8 +27,8 @@ public class AppInfoController {
 
     @ResponseBody
     @RequestMapping("/list")
-    public List<App> listApp() {
-        List<App> domains = messageService.findAllDomain();
+    public List<Domain> listApp() {
+        List<Domain> domains = messageService.findAllDomain();
         return domains;
     }
 
@@ -38,7 +38,7 @@ public class AppInfoController {
         page = (null == page) ? 0 : page;
         size = (null == size) ? 0 : size;
 
-        List<App> domains = messageService.findAllDomain();
+        List<Domain> domains = messageService.findAllDomain();
         mm.put("domains", domains);
 
         if (StringUtils.isEmpty(domain)) {

@@ -7,14 +7,13 @@ import org.springframework.data.elasticsearch.annotations.Document;
 import org.springframework.data.elasticsearch.annotations.Field;
 import org.springframework.data.elasticsearch.annotations.FieldIndex;
 
-@Document(indexName = "logx", type = "app", shards = 5, replicas = 0, refreshInterval = "-1", createIndex=false)
-public class App implements Serializable {
+@Document(indexName = "logx", type = "domain", shards = 5, replicas = 0, refreshInterval = "-1", createIndex=false)
+public class Domain implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
     private Long id;
-    @Field(store = true, index = FieldIndex.not_analyzed)
-    private String appName;
+    private String name;
 
     public Long getId() {
         return id;
@@ -24,11 +23,11 @@ public class App implements Serializable {
         this.id = id;
     }
 
-    public String getAppName() {
-        return appName;
+    public String getName() {
+        return name;
     }
 
-    public void setAppName(String appName) {
-        this.appName = appName;
+    public void setName(String name) {
+        this.name = name;
     }
 }

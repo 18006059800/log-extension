@@ -1,8 +1,8 @@
 package io.log.extension.server.service;
 
-import io.log.extension.server.entity.App;
+import io.log.extension.server.entity.Domain;
 import io.log.extension.server.entity.DefaultMessage;
-import io.log.extension.server.repo.AppRepo;
+import io.log.extension.server.repo.DomainRepo;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,7 +19,7 @@ public class MessageService {
     @Autowired
     private DefaultMessageRepo defaultMessageRepo;
     @Autowired
-    private AppRepo appRepo;
+    private DomainRepo domainRepo;
 
     public void handleDefaultMessage(DefaultMessage defaultMessage) {
         String domain = defaultMessage.getDomain();
@@ -32,11 +32,11 @@ public class MessageService {
             return;
         }
 
-        App de = appRepo.findByAppName(domain);
+        Domain de = domainRepo.findByName(domain);
         if (null == de) { // 如果ES中没有该域信息, 保存域信息以及消息
-            de = new App();
-            de.setAppName(domain);
-            appRepo.save(de);
+            de = new Domain();
+            de.setName(domain);
+            domainRepo.save(de);
             defaultMessageRepo.save(defaultMessage);
             return;
         }
@@ -49,9 +49,9 @@ public class MessageService {
      *
      * @return
      */
-    public List<App> findAllDomain() {
-        Iterable<App> result = appRepo.findAll();
-        List<App> domains = new ArrayList<App>();
+    public List<Domain> findAllDomain() {
+        Iterable<Domain> result = domainRepo.findAll();
+        List<Domain> domains = new ArrayList<Domain>();
         result.forEach(domain -> {
             domains.add(domain);
         });
@@ -68,7 +68,7 @@ public class MessageService {
      */
     public Page<DefaultMessage> findAllRootMessage(String domain, Integer page, Integer size) {
         Pageable pageable = new PageRequest(page, size);
-        Page<DefaultMessage> defaultMessages = appRepo.findByDomain(domain, pageable);
+        Page<DefaultMessage> defaultMessages = defaultMessageRepo.findByDomainAndIsRootMessage(domain, true, pageable);
         return defaultMessages;
     }
 
