@@ -8,11 +8,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import io.log.extension.server.repo.DefaultMessageRepo;
+import io.log.extension.server.service.vo.ListMessageCriteria;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 @Service
 public class MessageService {
@@ -75,13 +77,27 @@ public class MessageService {
     /**
      * 查询完整信息链
      *
-     * @param domain
      * @param rootMessageId
      * @return
      */
-    public List<DefaultMessage> getMessageChain(String domain, String rootMessageId) {
-        List<DefaultMessage> defaultMessages = defaultMessageRepo.findByDomainAndRootMessageId(domain, rootMessageId);
+    public List<DefaultMessage> getMessageChain(String rootMessageId) {
+        List<DefaultMessage> defaultMessages = defaultMessageRepo.findByRootMessageId(rootMessageId);
         return defaultMessages;
     }
 
+    public List<DefaultMessage> findSelectedMessage(ListMessageCriteria criteria) {
+        List<DefaultMessage> result = null;
+
+        if (StringUtils.isEmpty(criteria.getClassName())) {
+            result = defaultMessageRepo.findByDomainAndIsRootMessage(criteria.getDomain(), true);
+            return result;
+        }
+        if (StringUtils.isEmpty(criteria.getClassMethod())) {
+            result = defaultMessageRepo.findByDomainAndClassNameAndIsRootMessage(criteria.getDomain(), criteria.getClassName(), true);
+            return result;
+        }
+        result = defaultMessageRepo.findByDomainAndClassNameAndClassMethodAndIsRootMessage(criteria.getDomain(), criteria.getClassName(), criteria.getClassMethod(), true);
+
+        return result;
+    }
 }

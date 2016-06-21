@@ -54,8 +54,8 @@
                           class="glyphicon glyphicon-triangle-bottom"></span>&nbsp;监控报表
             </h4>
             <ul class="nav nav-sidebar">
-                <li class="active"><a href="#">应用信息</a></li>
-                <li><a href="/app/showChain">调用关系</a></li>
+                <li><a href="/app/list-root-message">应用信息</a></li>
+                <li class="active"><a href="association.html">调用关系</a></li>
                 <li><a href="association.html">调用统计</a></li>
                 <li><a href="association.html">异常超时</a></li>
             </ul>
@@ -65,78 +65,31 @@
 
             <ol class="breadcrumb">
                 <li><a href="#">首页</a></li>
-                <li class="active">应用信息</li>
+                <li class="active">调用关系</li>
             </ol>
 
-            <div class="panel panel-primary">
-                <div class="panel-heading">
-                    <h3 class="panel-title">操作区</h3>
-                </div>
-                <form id="query-message-form" action="/app/list-root-message" method="get">
-                    <div class="panel-body">
-                        <div class="row">
-                            <div class="col-xs-3">
-                                <span>应用 * ：</span>
-                                <select id="domain-id" name="domain" onchange="rootMessageJs.loadClassInfo()">
-                                    <option value="">请选择</option>
-                                </select>
-                            </div>
-                            <div class="col-xs-3">
-                                <span>类名称：</span>
-                                <select id="className-id" name="className">
-                                    <option value="">请选择</option>
-                                </select>
-                            </div>
-                            <div class="col-xs-3">
-                                <span>方法名：</span>
-                                <select id="classMethod-id" name="classMethod">
-                                    <option value="">请选择</option>
-                                </select>
-                            </div>
-                            <input type="hidden" name="page"/>
-                            <input type="hidden" name="size"/>
-
-                            <div>
-                                <input type="button" class="btn btn-primary" onclick="rootMessageJs.query()" value="查询"/>
-                            </div>
-                        </div>
-                    </div>
-                </form>
-            </div>
 
             <div class="table-responsive">
                 <table class="table table-striped">
                     <thead>
-                    <tr>
-                        <th width="10%">应用</th>
-                        <th width="50%">类名称</th>
-                        <th>方法名</th>
-                    </tr>
+                        <tr>
+                            <th width="15%" style="text-align: center;">应用名称</th>
+                            <th width="15%" style="text-align: center;">类名称</th>
+                            <th width="10%" style="text-align: center;">方法名</th>
+
+                        </tr>
                     </thead>
                     <tbody id="theme-content">
                     <c:forEach items="${data}" var="item">
                         <tr>
                             <td>${item.domain}</td>
                             <td>${item.className}</td>
-                            <td><a href="/app/showChain?rootMessageId=${item.rootMessageId}">${item.classMethod}</a></td>
+                            <td><a href="/app/showChain/${item.rootMessageId}">${item.classMethod}</a></td>
                         </tr>
                     </c:forEach>
                     </tbody>
                 </table>
             </div>
-            <!-- 分页开始 -->
-            <div id="cell-pager" class="row">
-                <nav>
-                    <ul class="pager">
-                        <li><a href="#" onclick="first()">首页</a></li>
-                        <li><a href="#" onclick="previous()">上一页</a></li>
-                        <li><a href="#" onclick="next()">下一页</a></li>
-                        <li><a href="#" onclick="end()">末页</a></li>
-                        <li id="theme_page-info">共 ${page + 1} / ${totalPages} 页</li>
-                    </ul>
-                </nav>
-            </div>
-            <!-- 分页结束 -->
 
         </div>
     </div>
@@ -147,8 +100,7 @@
 ================================================== -->
 <!-- Placed at the end of the document so the pages load faster -->
 <script src="/bower_components/jquery/dist/jquery.min.js"></script>
-<script src="/bower_components/commons/js/logx/root.js"></script>
-<script src="/bower_components/commons/js/pager.js"></script>
+<script src="/bower_components/commons/js/logx/chain.js"></script>
 <script src="/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 <script src="/bower_components/dashboard/docs.min.js"></script>
 <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->

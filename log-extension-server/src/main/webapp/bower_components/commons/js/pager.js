@@ -7,7 +7,7 @@ var pager = {
 	totalElements : 0,
 	url : "",
 	queryString : ""
-}
+};
 
 /**
  * 初始化分页组件
