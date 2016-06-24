@@ -18,6 +18,7 @@
     <link href="/bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="/bower_components/dashboard/dashboard.css" rel="stylesheet">
     <link href="/bower_components/commons/css/core.css" rel="stylesheet">
+    <link href="/bower_components/jquery-treegrid/css/jquery.treegrid.css" rel="stylesheet">
     <script src="/bower_components/dashboard/ie-emulation-modes-warning.js"></script>
 </head>
 
@@ -55,7 +56,7 @@
             </h4>
             <ul class="nav nav-sidebar">
                 <li><a href="/app/list-root-message">应用信息</a></li>
-                <li class="active"><a href="association.html">调用关系</a></li>
+                <li class="active"><a href="#">调用关系</a></li>
                 <li><a href="association.html">调用统计</a></li>
                 <li><a href="association.html">异常超时</a></li>
             </ul>
@@ -69,24 +70,49 @@
             </ol>
 
 
-            <div class="table-responsive">
-                <table class="table table-striped">
+
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3 class="panel-title">操作区</h3>
+                </div>
+                <form id="query-message-form" class="form-inline" action="/app/list-root-message" method="get">
+                    <div class="form-group">
+                        <label for="domain-id">应用 * : </label>
+                        <select id="domain-id" name="domain" class="form-control"
+                                onchange="chainJs.domainChanged()" style="width: 120px;">
+                            <option value="">请选择</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="className-id">类名称：</label>
+                        <select id="className-id" name="className" class="form-control" style="width: 120px;" onchange="chainJs.classNameChanged()">
+                            <option value="">请选择</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="classMethod-id">方法名：</label>
+                        <select id="classMethod-id" name="classMethod" class="form-control" style="width: 120px;">
+                            <option value="">请选择</option>
+                        </select>
+                    </div>
+                    <input type="hidden" name="page"/>
+                    <input type="hidden" name="size"/>
+                    <input type="button" class="btn btn-primary" onclick="chainJs.query()" value="查询"/>
+                </form>
+            </div>
+
+            <div class="row">
+                <table id="treegrid" class="table table-striped tree">
                     <thead>
                         <tr>
-                            <th width="15%" style="text-align: center;">应用名称</th>
-                            <th width="15%" style="text-align: center;">类名称</th>
-                            <th width="10%" style="text-align: center;">方法名</th>
-
+                            <th width="20%" style="text-align: center;">应用名称</th>
+                            <th style="text-align: center;">类名称</th>
+                            <th width="15%" style="text-align: center;">方法名</th>
+                            <th width="8%" style="text-align: center;">完整性</th>
                         </tr>
                     </thead>
                     <tbody id="theme-content">
-                    <c:forEach items="${data}" var="item">
-                        <tr>
-                            <td>${item.domain}</td>
-                            <td>${item.className}</td>
-                            <td><a href="/app/showChain/${item.rootMessageId}">${item.classMethod}</a></td>
-                        </tr>
-                    </c:forEach>
                     </tbody>
                 </table>
             </div>
@@ -100,8 +126,12 @@
 ================================================== -->
 <!-- Placed at the end of the document so the pages load faster -->
 <script src="/bower_components/jquery/dist/jquery.min.js"></script>
-<script src="/bower_components/commons/js/logx/chain.js"></script>
 <script src="/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="/bower_components/jquery-treegrid/js/jquery.treegrid.bootstrap3.js"></script>
+<script src="/bower_components/jquery-treegrid/js/jquery.treegrid.min.js"></script>
+<script src="/bower_components/commons/js/url-util.js"></script>
+<script src="/bower_components/commons/js/logx/chain.js"></script>
+<script src="/bower_components/commons/js/handleTreeGrid.js"></script>
 <script src="/bower_components/dashboard/docs.min.js"></script>
 <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
 <script src="/bower_components/dashboard/ie10-viewport-bug-workaround.js"></script>

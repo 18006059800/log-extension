@@ -4,6 +4,7 @@ import io.log.extension.server.entity.DefaultMessage;
 import io.log.extension.server.entity.Domain;
 import io.log.extension.server.service.MessageService;
 import io.log.extension.server.service.vo.ListMessageCriteria;
+import io.log.extension.server.service.vo.TreeGridMessage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,9 +53,24 @@ public class AppInfoController {
 
     @ResponseBody
     @RequestMapping("/getShowChainMessage")
-    public List<DefaultMessage> getShowChainMessage(@PathVariable("rootMessageId") String rootMessageId, ModelMap mm) {
+    public List<TreeGridMessage> getShowChainMessage(String rootMessageId, ModelMap mm) {
         List<DefaultMessage> result = messageService.getMessageChain(rootMessageId);
-        return result;
+        List<TreeGridMessage> messages = new ArrayList<TreeGridMessage>();
+        result.forEach(item -> {
+            TreeGridMessage message = new TreeGridMessage();
+            message.setClassMethod(item.getClassMethod());
+            message.setClassName(item.getClassName());
+            message.setId(item.getMessageId());
+            message.setDomain(item.getDomain());
+            message.setHasError(item.getHasError());
+            if (item.getMessageId().equals(item.getParentMessageId())) {
+                message.setPid("-1");
+            } else {
+                message.setPid(item.getParentMessageId());
+            }
+            messages.add(message);
+        });
+        return messages;
     }
 
     @RequestMapping("/list-root-message")

@@ -11,6 +11,7 @@ var rootMessageJs = {
             }
             $("#domain-id").append(ops);
         });
+
     }),
 
     domainChanged : (function () {
@@ -39,12 +40,25 @@ var rootMessageJs = {
     classNameChanged : (function () {
         $("#classMethod-id").empty();
         $("#classMethod-id").prepend("<option value=''>请选择</option>");
-
+        rootMessageJs.loadMethodInfo();
 
     }),
 
     // 加载方法信息
     loadMethodInfo : (function () {
+        var appName = $("#domain-id").val();
+        var className = $("#className-id").val();
+
+        $.get("/app/findSelectedMessage?domain=" + appName + "&className=" + className, function (data) {
+            if (null == data) {
+                return;
+            }
+            var ops = "";
+            for (var i = 0; i < data.length; i++) {
+                ops += "<option value='" + data[i].classMethod + "'>" + data[i].classMethod + "</option>";
+            }
+            $("#classMethod-id").append(ops);
+        });
 
     }),
 
@@ -62,4 +76,5 @@ var rootMessageJs = {
 
 $(function () {
     rootMessageJs.loadAppInfo();
+    
 });

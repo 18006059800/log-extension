@@ -28,11 +28,11 @@ public class MessageService {
         String className = defaultMessage.getClassName();
         String classMethod = defaultMessage.getClassMethod();
 
-        DefaultMessage dm = defaultMessageRepo.findByDomainAndClassNameAndClassMethod(domain, className, classMethod);
-        if (null != dm) { // 如果ES中有该消息, 应该单独处理,如果这个消息有错误应该更新消息
-            // TODO 如果这个消息有错误应该更新消息
-            return;
-        }
+//        DefaultMessage dm = defaultMessageRepo.findByDomainAndClassNameAndClassMethod(domain, className, classMethod);
+//        if (null != dm) { // 如果ES中有该消息, 应该单独处理,如果这个消息有错误应该更新消息
+//            // TODO 如果这个消息有错误应该更新消息
+//            return;
+//        }
 
         Domain de = domainRepo.findByName(domain);
         if (null == de) { // 如果ES中没有该域信息, 保存域信息以及消息

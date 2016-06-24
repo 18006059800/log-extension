@@ -16,6 +16,7 @@
 
     <title>日志监控系统</title>
     <link href="/bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/bower_components/bootstrap-combobox/css/bootstrap-combobox.css" rel="stylesheet">
     <link href="/bower_components/dashboard/dashboard.css" rel="stylesheet">
     <link href="/bower_components/commons/css/core.css" rel="stylesheet">
     <script src="/bower_components/dashboard/ie-emulation-modes-warning.js"></script>
@@ -72,35 +73,30 @@
                 <div class="panel-heading">
                     <h3 class="panel-title">操作区</h3>
                 </div>
-                <form id="query-message-form" action="/app/list-root-message" method="get">
-                    <div class="panel-body">
-                        <div class="row">
-                            <div class="col-xs-3">
-                                <span>应用 * ：</span>
-                                <select id="domain-id" name="domain" onchange="rootMessageJs.loadClassInfo()">
-                                    <option value="">请选择</option>
-                                </select>
-                            </div>
-                            <div class="col-xs-3">
-                                <span>类名称：</span>
-                                <select id="className-id" name="className">
-                                    <option value="">请选择</option>
-                                </select>
-                            </div>
-                            <div class="col-xs-3">
-                                <span>方法名：</span>
-                                <select id="classMethod-id" name="classMethod">
-                                    <option value="">请选择</option>
-                                </select>
-                            </div>
-                            <input type="hidden" name="page"/>
-                            <input type="hidden" name="size"/>
-
-                            <div>
-                                <input type="button" class="btn btn-primary" onclick="rootMessageJs.query()" value="查询"/>
-                            </div>
-                        </div>
+                <form id="query-message-form" class="form-inline" action="/app/list-root-message" method="get">
+                    <div class="form-group">
+                        <label for="domain-id">应用 * : </label>
+                        <select id="domain-id" name="domain" class="form-control"
+                                onchange="rootMessageJs.domainChanged()" style="width: 120px;">
+                            <option value="">请选择</option>
+                        </select>
                     </div>
+
+                    <div class="form-group">
+                        <label for="className-id">类名称：</label>
+                        <select id="className-id" name="className" class="form-control" style="width: 120px;" onchange="rootMessageJs.classNameChanged()">
+                            <option value="">请选择</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="classMethod-id">方法名：</label>
+                        <select id="classMethod-id" name="classMethod" class="form-control" style="width: 120px;">
+                            <option value="">请选择</option>
+                        </select>
+                    </div>
+                    <input type="hidden" name="page"/>
+                    <input type="hidden" name="size"/>
+                    <input type="button" class="btn btn-primary" onclick="rootMessageJs.query()" value="查询"/>
                 </form>
             </div>
 
@@ -111,6 +107,8 @@
                         <th width="10%">应用</th>
                         <th width="50%">类名称</th>
                         <th>方法名</th>
+                        <th>IP</th>
+                        <th>创建时间</th>
                     </tr>
                     </thead>
                     <tbody id="theme-content">
@@ -119,6 +117,8 @@
                             <td>${item.domain}</td>
                             <td>${item.className}</td>
                             <td><a href="/app/showChain?rootMessageId=${item.rootMessageId}">${item.classMethod}</a></td>
+                            <td>${item.host}</td>
+                            <td>${item.start}</td>
                         </tr>
                     </c:forEach>
                     </tbody>
@@ -147,9 +147,10 @@
 ================================================== -->
 <!-- Placed at the end of the document so the pages load faster -->
 <script src="/bower_components/jquery/dist/jquery.min.js"></script>
+<script src="/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="/bower_components/bootstrap-combobox/js/bootstrap-combobox.js"></script>
 <script src="/bower_components/commons/js/logx/root.js"></script>
 <script src="/bower_components/commons/js/pager.js"></script>
-<script src="/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 <script src="/bower_components/dashboard/docs.min.js"></script>
 <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
 <script src="/bower_components/dashboard/ie10-viewport-bug-workaround.js"></script>
