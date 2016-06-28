@@ -70,6 +70,9 @@ public class AppInfoController {
             }
             messages.add(message);
         });
+
+
+
         return messages;
     }
 

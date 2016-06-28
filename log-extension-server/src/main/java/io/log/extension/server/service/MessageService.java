@@ -5,6 +5,7 @@ import io.log.extension.server.entity.DefaultMessage;
 import io.log.extension.server.repo.DomainRepo;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import io.log.extension.server.repo.DefaultMessageRepo;
@@ -60,9 +61,10 @@ public class MessageService {
         if (null == result) {
             return domains;
         }
+        Iterator<Domain> t = result.iterator();
 
-        while (result.iterator().hasNext()) {
-            Domain domain = result.iterator().next();
+        while (t.hasNext()) {
+            Domain domain = t.next();
             domains.add(domain);
         }
 

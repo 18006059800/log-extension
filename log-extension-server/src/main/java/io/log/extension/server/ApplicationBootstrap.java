@@ -1,6 +1,6 @@
 package io.log.extension.server;
 
-import io.log.extension.server.service.KafkaConsumerService;
+//import io.log.extension.server.service.KafkaConsumerService;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -19,8 +19,8 @@ public class ApplicationBootstrap extends SpringBootServletInitializer {
 
     public static void main(String[] args) {
         ApplicationContext applicationContext = SpringApplication.run(ApplicationBootstrap.class, args);
-        KafkaConsumerService kafkaConsumerService = applicationContext.getBean(KafkaConsumerService.class);
-        kafkaConsumerService.test();
+//        KafkaConsumerService kafkaConsumerService = applicationContext.getBean(KafkaConsumerService.class);
+//        kafkaConsumerService.test();
 
     }
 
