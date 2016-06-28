@@ -2,12 +2,12 @@ package io.log.extension.agent.core.handler;
 
 import io.log.extension.agent.core.entity.MessageInfo;
 import io.log.extension.agent.core.entity.Staticstics;
-import io.log.extension.agent.core.entity.spi.DefaultMessage;
 
 import java.util.Calendar;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
+import io.log.extension.api.DefaultMessage;
 import org.springframework.beans.BeanUtils;
 
 public class StorageConcurrentMap {

@@ -15,6 +15,11 @@
 	</properties>
 	<dependencies>
 		<dependency>
+			<groupId>io.logx</groupId>
+			<artifactId>log-extension-api</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+		<dependency>
 			<groupId>com.alibaba</groupId>
 			<artifactId>dubbo</artifactId>
 			<scope>provided</scope>

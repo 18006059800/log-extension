@@ -54,9 +54,18 @@ public class MessageService {
     public List<Domain> findAllDomain() {
         Iterable<Domain> result = domainRepo.findAll();
         List<Domain> domains = new ArrayList<Domain>();
-        result.forEach(domain -> {
+//        result.forEach(domain -> {
+//            domains.add(domain);
+//        });
+        if (null == result) {
+            return domains;
+        }
+
+        while (result.iterator().hasNext()) {
+            Domain domain = result.iterator().next();
             domains.add(domain);
-        });
+        }
+
         return domains;
     }
 

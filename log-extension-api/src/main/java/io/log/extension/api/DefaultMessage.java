@@ -1,4 +1,4 @@
-package io.log.extension.agent.core.entity.spi;
+package io.log.extension.api;
 
 import java.io.Serializable;
 import java.util.Date;

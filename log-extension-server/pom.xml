@@ -18,7 +18,7 @@
 	</distributionManagement>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<jdk.version>1.8</jdk.version>
+		<jdk.version>1.7</jdk.version>
 		<start-class>io.log.extension.server.ApplicationBootstrap</start-class>
 	</properties>
 	<dependencies>
@@ -35,10 +35,15 @@
 			<artifactId>spring-boot-starter-data-elasticsearch</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>org.apache.kafka</groupId>
-			<artifactId>kafka-clients</artifactId>
-			<version>0.9.0.1</version>
+			<groupId>io.logx</groupId>
+			<artifactId>log-extension-api</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
+		<!--<dependency>-->
+			<!--<groupId>org.apache.kafka</groupId>-->
+			<!--<artifactId>kafka-clients</artifactId>-->
+			<!--<version>0.9.0.1</version>-->
+		<!--</dependency>-->
 
 		<dependency>
 			<groupId>javax.servlet</groupId>

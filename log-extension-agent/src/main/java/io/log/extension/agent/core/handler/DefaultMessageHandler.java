@@ -1,7 +1,7 @@
 package io.log.extension.agent.core.handler;
 
-import io.log.extension.agent.core.entity.spi.DefaultMessage;
 import io.log.extension.agent.core.sender.Sender;
+import io.log.extension.api.DefaultMessage;
 
 import java.util.Map;
 

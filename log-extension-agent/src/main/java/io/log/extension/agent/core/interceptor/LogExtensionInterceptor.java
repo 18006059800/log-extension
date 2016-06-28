@@ -2,7 +2,6 @@ package io.log.extension.agent.core.interceptor;
 
 import io.log.extension.agent.core.config.PropertiesConfig;
 import io.log.extension.agent.core.entity.Constants;
-import io.log.extension.agent.core.entity.spi.DefaultMessage;
 import io.log.extension.agent.core.handler.Handler;
 
 import java.util.Date;
@@ -10,6 +9,7 @@ import java.util.List;
 import java.util.Stack;
 import java.util.UUID;
 
+import io.log.extension.api.DefaultMessage;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.slf4j.MDC;

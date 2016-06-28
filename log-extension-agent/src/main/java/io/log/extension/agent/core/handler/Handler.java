@@ -1,6 +1,6 @@
 package io.log.extension.agent.core.handler;
 
-import io.log.extension.agent.core.entity.spi.DefaultMessage;
+import io.log.extension.api.DefaultMessage;
 
 public interface Handler {
 	
