@@ -5,10 +5,17 @@ var rootMessageJs = {
             if (null == data) {
                 return;
             }
-            var ops = "";
+
+            var appSet = new HashSet();
+
             for (var i = 0; i < data.length; i++) {
-                ops += "<option value='" + data[i].name + "'>" + data[i].name + "</option>";
+                appSet.add(data[i].name);
             }
+
+            var ops = "";
+            appSet.values().forEach(function (e) {
+                ops += "<option value='" + e + "'>" + e + "</option>";
+            });
             $("#domain-id").append(ops);
         });
 
@@ -29,10 +36,16 @@ var rootMessageJs = {
             if (null == data) {
                 return;
             }
-            var ops = "";
-            for (var i = 0; i < data.length; i++) {
-                ops += "<option value='" + data[i].className + "'>" + data[i].className + "</option>";
+            var classNameSet = new HashSet();
+            for(var i = 0; i < data.length; i++) {
+                classNameSet.add(data[i].className);
             }
+
+            var ops = "";
+            classNameSet.values().forEach(function (e) {
+                ops += "<option value='" + e + "'>" + e + "</option>";
+            });
+            
             $("#className-id").append(ops);
         });
     }),
@@ -53,10 +66,16 @@ var rootMessageJs = {
             if (null == data) {
                 return;
             }
-            var ops = "";
+
+            var classMethodSet = new HashSet();
             for (var i = 0; i < data.length; i++) {
-                ops += "<option value='" + data[i].classMethod + "'>" + data[i].classMethod + "</option>";
+                classMethodSet.add(data[i].classMethod);
             }
+
+            var ops = "";
+            classMethodSet.values().forEach(function (e) {
+                ops += "<option value='" + e + "'>" + e + "</option>";
+            });
             $("#classMethod-id").append(ops);
         });
 
@@ -76,5 +95,4 @@ var rootMessageJs = {
 
 $(function () {
     rootMessageJs.loadAppInfo();
-    
 });

@@ -1,4 +1,4 @@
-document.write(" <script  language=\"javascript\"  src=\"../scripts/commons/js/url-util.js \"  > <\/script>");
+document.write(" <script  language=\"javascript\"  src=\"/bower_components/commons/js/url-util.js \"  > <\/script>");
 var pager = {
 	page : 0,
 	size : 20,

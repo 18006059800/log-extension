@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+       xsi:schemaLocation="http://code.alibabatech.com/schema/dubbo http://code.alibabatech.com/schema/dubbo/dubbo.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd">
+
+    <dubbo:application name="logx-extension-demo-dubbo-provider"/>
+    <!-- 采用直连方式 -->
+    <dubbo:registry address="N/A"/>
+    <dubbo:protocol name="dubbo" port="20880"/>
+    <dubbo:annotation package="io.log.extension.agent.demo.dubbo.provider"/>
+
+    <dubbo:service interface="io.log.extension.api.RemoteService" ref="remoteService"/>
+    <bean id="remoteService" class="io.log.extension.server.rpc.RemoteServiceImpl" />
+</beans>

@@ -129,6 +129,8 @@
 <script src="/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 <script src="/bower_components/jquery-treegrid/js/jquery.treegrid.bootstrap3.js"></script>
 <script src="/bower_components/jquery-treegrid/js/jquery.treegrid.min.js"></script>
+<script src="/bower_components/commons/js/hashtable.js"></script>
+<script src="/bower_components/commons/js/hashset.js"></script>
 <script src="/bower_components/commons/js/url-util.js"></script>
 <script src="/bower_components/commons/js/logx/chain.js"></script>
 <script src="/bower_components/commons/js/handleTreeGrid.js"></script>

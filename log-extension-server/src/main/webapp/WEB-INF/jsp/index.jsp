@@ -149,6 +149,8 @@
 <script src="/bower_components/jquery/dist/jquery.min.js"></script>
 <script src="/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 <script src="/bower_components/bootstrap-combobox/js/bootstrap-combobox.js"></script>
+<script src="/bower_components/commons/js/hashtable.js"></script>
+<script src="/bower_components/commons/js/hashset.js"></script>
 <script src="/bower_components/commons/js/logx/root.js"></script>
 <script src="/bower_components/commons/js/pager.js"></script>
 <script src="/bower_components/dashboard/docs.min.js"></script>
