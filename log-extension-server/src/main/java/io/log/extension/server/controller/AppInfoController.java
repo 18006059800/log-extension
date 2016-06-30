@@ -56,7 +56,8 @@ public class AppInfoController {
     public List<TreeGridMessage> getShowChainMessage(String rootMessageId, ModelMap mm) {
         List<DefaultMessage> result = messageService.getMessageChain(rootMessageId);
         List<TreeGridMessage> messages = new ArrayList<TreeGridMessage>();
-        result.forEach(item -> {
+
+        for (DefaultMessage item : result) {
             TreeGridMessage message = new TreeGridMessage();
             message.setClassMethod(item.getClassMethod());
             message.setClassName(item.getClassName());
@@ -69,9 +70,22 @@ public class AppInfoController {
                 message.setPid(item.getParentMessageId());
             }
             messages.add(message);
-        });
+        }
 
-
+//        result.forEach(item -> {
+//            TreeGridMessage message = new TreeGridMessage();
+//            message.setClassMethod(item.getClassMethod());
+//            message.setClassName(item.getClassName());
+//            message.setId(item.getMessageId());
+//            message.setDomain(item.getDomain());
+//            message.setHasError(item.getHasError());
+//            if (item.getMessageId().equals(item.getParentMessageId())) {
+//                message.setPid("-1");
+//            } else {
+//                message.setPid(item.getParentMessageId());
+//            }
+//            messages.add(message);
+//        });
 
         return messages;
     }

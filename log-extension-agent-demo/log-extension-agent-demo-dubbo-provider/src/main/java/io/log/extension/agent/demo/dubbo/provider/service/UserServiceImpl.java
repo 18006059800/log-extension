@@ -15,7 +15,15 @@ import com.alibaba.dubbo.config.annotation.Service;
 public class UserServiceImpl implements UserService {
 	@Autowired
 	UserRepo userRepo;
-	
+
+	public UserRepo getUserRepo() {
+		return userRepo;
+	}
+
+	public void setUserRepo(UserRepo userRepo) {
+		this.userRepo = userRepo;
+	}
+
 	@Override
 	public List<User> findAll() {
 		List<User> users = new ArrayList<User>();
