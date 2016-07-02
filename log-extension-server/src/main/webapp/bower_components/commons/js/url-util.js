@@ -84,7 +84,7 @@ function addParam(url, paramName, paramValue) {
  * @returns {Boolean}
  */
 function isKeyContains(queryString, name) {
-	var result = getUrlParam(queryString, name);
+	var result = urlUtilJS.getUrlParam(queryString, name);
 	if (null == result) {
 		return false;
 	}

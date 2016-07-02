@@ -20,6 +20,35 @@
     <link href="/bower_components/dashboard/dashboard.css" rel="stylesheet">
     <link href="/bower_components/commons/css/core.css" rel="stylesheet">
     <script src="/bower_components/dashboard/ie-emulation-modes-warning.js"></script>
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="/bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="/bower_components/bootstrap-combobox/js/bootstrap-combobox.js"></script>
+    <script src="/bower_components/commons/js/hashtable.js"></script>
+    <script src="/bower_components/commons/js/hashset.js"></script>
+    <script src="/bower_components/commons/js/logx/root.js"></script>
+    <script src="/bower_components/commons/js/pager.js"></script>
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="/bower_components/dashboard/ie10-viewport-bug-workaround.js"></script>
+
+
+    <script type="text/javascript">
+
+        $(function () {
+            rootMessageJs.loadAppInfo();
+            pager.page = "${page}";
+            pager.size = "${size}";
+            pager.totalPages = "${totalPages}";
+
+            pager.url = window.location.href;
+            pager.queryString = window.location.search;
+            initPager();
+        });
+
+
+    </script>
 </head>
 
 <body>
@@ -57,8 +86,8 @@
             <ul class="nav nav-sidebar">
                 <li class="active"><a href="#">应用信息</a></li>
                 <li><a href="/app/showChain">调用关系</a></li>
-                <li><a href="association.html">调用统计</a></li>
-                <li><a href="association.html">异常超时</a></li>
+                <li><a href="/app/exception">异常超时</a></li>
+                <li><a href="#">调用统计</a></li>
             </ul>
         </div>
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
@@ -128,10 +157,10 @@
             <div id="cell-pager" class="row">
                 <nav>
                     <ul class="pager">
-                        <li><a href="#" onclick="first()">首页</a></li>
-                        <li><a href="#" onclick="previous()">上一页</a></li>
-                        <li><a href="#" onclick="next()">下一页</a></li>
-                        <li><a href="#" onclick="end()">末页</a></li>
+                        <li><a id="pager-first" href="#">首页</a></li>
+                        <li><a id="pager-prev" href="#">上一页</a></li>
+                        <li><a id="pager-next" href="#">下一页</a></li>
+                        <li><a id="pager-end" href="#">末页</a></li>
                         <li id="theme_page-info">共 ${page + 1} / ${totalPages} 页</li>
                     </ul>
                 </nav>
@@ -143,18 +172,5 @@
 </div>
 
 
-<!-- Bootstrap core JavaScript
-================================================== -->
-<!-- Placed at the end of the document so the pages load faster -->
-<script src="/bower_components/jquery/dist/jquery.min.js"></script>
-<script src="/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-<script src="/bower_components/bootstrap-combobox/js/bootstrap-combobox.js"></script>
-<script src="/bower_components/commons/js/hashtable.js"></script>
-<script src="/bower_components/commons/js/hashset.js"></script>
-<script src="/bower_components/commons/js/logx/root.js"></script>
-<script src="/bower_components/commons/js/pager.js"></script>
-<script src="/bower_components/dashboard/docs.min.js"></script>
-<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-<script src="/bower_components/dashboard/ie10-viewport-bug-workaround.js"></script>
 </body>
 </html>

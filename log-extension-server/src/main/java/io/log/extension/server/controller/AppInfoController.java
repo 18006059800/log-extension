@@ -104,7 +104,7 @@ public class AppInfoController {
         List<DefaultMessage> data = new ArrayList<DefaultMessage>();
         if (StringUtils.isEmpty(criteria.getDomain())) {
             mm.put("page", 0);
-            mm.put("size", 0);
+            mm.put("size", 20);
             mm.put("totalPages", totalPages);
             mm.put("data", data);
 
@@ -118,6 +118,34 @@ public class AppInfoController {
         mm.put("size", size);
         mm.put("totalPages", messages.getTotalPages());
         return "/index";
+    }
+
+    @RequestMapping("/exception")
+    public String showException(ListMessageCriteria criteria, ModelMap mm) {
+        Integer totalPages = 0;
+        Integer page = criteria.getPage();
+        Integer size = criteria.getSize();
+        page = (null == page) ? 0 : page;
+        size = (null == size) ? 20 : size;
+
+
+        List<Domain> domains = messageService.findAllDomain();
+        mm.put("domains", domains);
+
+        List<DefaultMessage> data = new ArrayList<DefaultMessage>();
+        if (StringUtils.isEmpty(criteria.getDomain())) {
+            mm.put("page", 0);
+            mm.put("size", 20);
+            mm.put("totalPages", totalPages);
+            mm.put("data", data);
+
+            return "/exception";
+        }
+
+        mm.put("page", page);
+        mm.put("size", size);
+        mm.put("totalPages", 0);
+        return "/exception";
     }
 
 }

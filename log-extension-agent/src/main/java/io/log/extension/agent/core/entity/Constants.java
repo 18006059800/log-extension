@@ -19,4 +19,8 @@ public class Constants {
 	public static final String AOP_ROOT_CLASS = "aopRootClass";
 	public static final String AOP_ROOT_METHOD = "aopRootMethod";
 
+	public static final String MESSAGE_TYPE_DEFAULT = "default";
+	public static final String MESSAGE_TYPE_ERROR = "error";
+	public static final String MESSAGE_TYPE_TIMEOUT = "timeout";
+
 }

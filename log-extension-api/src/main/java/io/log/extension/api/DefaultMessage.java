@@ -74,6 +74,10 @@ public class DefaultMessage implements Serializable {
 	 * 根消息方法名
 	 */
 	private String rootMethodName;
+	/**
+	 * 消息类型
+	 */
+	private String messageType;
 
 	public String getDomain() {
 		return domain;
@@ -209,6 +213,22 @@ public class DefaultMessage implements Serializable {
 
 	public void setRootMethodName(String rootMethodName) {
 		this.rootMethodName = rootMethodName;
+	}
+
+	public Boolean getRootMessage() {
+		return isRootMessage;
+	}
+
+	public void setRootMessage(Boolean rootMessage) {
+		isRootMessage = rootMessage;
+	}
+
+	public String getMessageType() {
+		return messageType;
+	}
+
+	public void setMessageType(String messageType) {
+		this.messageType = messageType;
 	}
 
 	@Override

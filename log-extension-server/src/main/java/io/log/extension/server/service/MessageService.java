@@ -2,6 +2,7 @@ package io.log.extension.server.service;
 
 import io.log.extension.server.entity.Domain;
 import io.log.extension.server.entity.DefaultMessage;
+import io.log.extension.server.entity.ExceptionMessage;
 import io.log.extension.server.repo.DomainRepo;
 
 import java.util.ArrayList;
@@ -9,7 +10,9 @@ import java.util.Iterator;
 import java.util.List;
 
 import io.log.extension.server.repo.DefaultMessageRepo;
+import io.log.extension.server.repo.ExceptionMessageRepo;
 import io.log.extension.server.service.vo.ListMessageCriteria;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -23,6 +26,8 @@ public class MessageService {
     private DefaultMessageRepo defaultMessageRepo;
     @Autowired
     private DomainRepo domainRepo;
+    @Autowired
+    private ExceptionMessageRepo exceptionMessageRepo;
 
     public void handleDefaultMessage(DefaultMessage defaultMessage) {
         String domain = defaultMessage.getDomain();
@@ -40,8 +45,12 @@ public class MessageService {
             de = new Domain();
             de.setName(domain);
             domainRepo.save(de);
-            defaultMessageRepo.save(defaultMessage);
             return;
+        }
+
+        if (defaultMessage.getHasError()) {
+            ExceptionMessage exceptionMessage = convertExceptionMessage(defaultMessage);
+            exceptionMessageRepo.save(exceptionMessage);
         }
 
         defaultMessageRepo.save(defaultMessage);
@@ -110,5 +119,11 @@ public class MessageService {
         result = defaultMessageRepo.findByDomainAndClassNameAndClassMethodAndIsRootMessage(criteria.getDomain(), criteria.getClassName(), criteria.getClassMethod(), true);
 
         return result;
+    }
+
+    private ExceptionMessage convertExceptionMessage(DefaultMessage defaultMessage) {
+        ExceptionMessage exceptionMessage = new ExceptionMessage();
+        BeanUtils.copyProperties(defaultMessage, exceptionMessage);
+        return exceptionMessage;
     }
 }

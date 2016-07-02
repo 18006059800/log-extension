@@ -1,12 +1,10 @@
 document.write(" <script  language=\"javascript\"  src=\"/bower_components/commons/js/url-util.js \"  > <\/script>");
 var pager = {
-	page : 0,
-	size : 20,
-	totalPages : 0,
-	elementNumber : 0,
-	totalElements : 0,
-	url : "",
-	queryString : ""
+	page: "${page}",
+	size: "${requestScope.size}",
+	totalPages: "${totalPages}",
+	url: window.location.href,
+	queryString: window.location.search
 };
 
 /**
@@ -34,6 +32,7 @@ function firstPage() {
 		nUrl = replaceParamVal(pager.url, "page", 0);
 		return nUrl;
 	}
+	alert(pager.url);
 	return pager.url;
 }
 
@@ -58,9 +57,11 @@ function prevPage() {
 function nextPage() {
 	var nUrl = "";
 	if (isKeyContains(pager.queryString, "page")) {
+		
+		pager.page = parseInt(pager.page);
 		nUrl = replaceParamVal(pager.url, "page",
-				(pager.page + 1 < pager.totalPages  ? pager.page + 1
-						: (pager.totalPages -1 < 0 ? 0 : pager.totalPages -1)));
+				(pager.page + 1 < pager.totalPages ? pager.page + 1
+						: (pager.totalPages -1 < 0 ? 0 : pager.totalPages - 1)));
 		return nUrl;
 	}
 

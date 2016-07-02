@@ -16,10 +16,39 @@
 
     <title>日志监控系统</title>
     <link href="/bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/bower_components/bootstrap-combobox/css/bootstrap-combobox.css" rel="stylesheet">
     <link href="/bower_components/dashboard/dashboard.css" rel="stylesheet">
     <link href="/bower_components/commons/css/core.css" rel="stylesheet">
-    <link href="/bower_components/jquery-treegrid/css/jquery.treegrid.css" rel="stylesheet">
     <script src="/bower_components/dashboard/ie-emulation-modes-warning.js"></script>
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="/bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="/bower_components/bootstrap-combobox/js/bootstrap-combobox.js"></script>
+    <script src="/bower_components/commons/js/hashtable.js"></script>
+    <script src="/bower_components/commons/js/hashset.js"></script>
+    <script src="/bower_components/commons/js/logx/root.js"></script>
+    <script src="/bower_components/commons/js/pager.js"></script>
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="/bower_components/dashboard/ie10-viewport-bug-workaround.js"></script>
+
+
+    <script type="text/javascript">
+
+        $(function () {
+            rootMessageJs.loadAppInfo();
+            pager.page = "${page}";
+            pager.size = "${size}";
+            pager.totalPages = "${totalPages}";
+
+            pager.url = window.location.href;
+            pager.queryString = window.location.search;
+            initPager();
+        });
+
+
+    </script>
 </head>
 
 <body>
@@ -56,8 +85,8 @@
             </h4>
             <ul class="nav nav-sidebar">
                 <li><a href="/app/list-root-message">应用信息</a></li>
-                <li class="active"><a href="#">调用关系</a></li>
-                <li><a href="/app/exception">异常超时</a></li>
+                <li><a href="/app/showChain">调用关系</a></li>
+                <li class="active"><a href="#">异常超时</a></li>
                 <li><a href="#">调用统计</a></li>
             </ul>
         </div>
@@ -66,10 +95,8 @@
 
             <ol class="breadcrumb">
                 <li><a href="#">首页</a></li>
-                <li class="active">调用关系</li>
+                <li class="active">应用信息</li>
             </ol>
-
-
 
             <div class="panel panel-primary">
                 <div class="panel-heading">
@@ -79,14 +106,14 @@
                     <div class="form-group">
                         <label for="domain-id">应用 * : </label>
                         <select id="domain-id" name="domain" class="form-control"
-                                onchange="chainJs.domainChanged()" style="width: 120px;">
+                                onchange="rootMessageJs.domainChanged()" style="width: 120px;">
                             <option value="">请选择</option>
                         </select>
                     </div>
 
                     <div class="form-group">
                         <label for="className-id">类名称：</label>
-                        <select id="className-id" name="className" class="form-control" style="width: 120px;" onchange="chainJs.classNameChanged()">
+                        <select id="className-id" name="className" class="form-control" style="width: 120px;" onchange="rootMessageJs.classNameChanged()">
                             <option value="">请选择</option>
                         </select>
                     </div>
@@ -98,44 +125,52 @@
                     </div>
                     <input type="hidden" name="page"/>
                     <input type="hidden" name="size"/>
-                    <input type="button" class="btn btn-primary" onclick="chainJs.query()" value="查询"/>
+                    <input type="button" class="btn btn-primary" onclick="rootMessageJs.query()" value="查询"/>
                 </form>
             </div>
 
-            <div class="row">
-                <table id="treegrid" class="table table-striped tree">
+            <div class="table-responsive">
+                <table class="table table-striped">
                     <thead>
-                        <tr>
-                            <th width="20%" style="text-align: center;">应用名称</th>
-                            <th style="text-align: center;">类名称</th>
-                            <th width="15%" style="text-align: center;">方法名</th>
-                            <th width="8%" style="text-align: center;">完整性</th>
-                        </tr>
+                    <tr>
+                        <th width="10%">应用</th>
+                        <th width="50%">类名称</th>
+                        <th>方法名</th>
+                        <th>IP</th>
+                        <th>创建时间</th>
+                    </tr>
                     </thead>
                     <tbody id="theme-content">
+                    <c:forEach items="${data}" var="item">
+                        <tr>
+                            <td>${item.domain}</td>
+                            <td>${item.className}</td>
+                            <td><a href="/app/showChain?rootMessageId=${item.rootMessageId}">${item.classMethod}</a></td>
+                            <td>${item.host}</td>
+                            <td>${item.start}</td>
+                        </tr>
+                    </c:forEach>
                     </tbody>
                 </table>
             </div>
+            <!-- 分页开始 -->
+            <div id="cell-pager" class="row">
+                <nav>
+                    <ul class="pager">
+                        <li><a id="pager-first" href="#">首页</a></li>
+                        <li><a id="pager-prev" href="#">上一页</a></li>
+                        <li><a id="pager-next" href="#">下一页</a></li>
+                        <li><a id="pager-end" href="#">末页</a></li>
+                        <li id="theme_page-info">共 ${page + 1} / ${totalPages} 页</li>
+                    </ul>
+                </nav>
+            </div>
+            <!-- 分页结束 -->
 
         </div>
     </div>
 </div>
 
 
-<!-- Bootstrap core JavaScript
-================================================== -->
-<!-- Placed at the end of the document so the pages load faster -->
-<script src="/bower_components/jquery/dist/jquery.min.js"></script>
-<script src="/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-<script src="/bower_components/jquery-treegrid/js/jquery.treegrid.bootstrap3.js"></script>
-<script src="/bower_components/jquery-treegrid/js/jquery.treegrid.min.js"></script>
-<script src="/bower_components/commons/js/hashtable.js"></script>
-<script src="/bower_components/commons/js/hashset.js"></script>
-<script src="/bower_components/commons/js/url-util.js"></script>
-<script src="/bower_components/commons/js/logx/chain.js"></script>
-<script src="/bower_components/commons/js/handleTreeGrid.js"></script>
-<script src="/bower_components/dashboard/docs.min.js"></script>
-<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-<script src="/bower_components/dashboard/ie10-viewport-bug-workaround.js"></script>
 </body>
 </html>
