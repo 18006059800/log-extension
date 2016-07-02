@@ -30,10 +30,11 @@
 		<!--</layout>-->
 	<!--</appender>-->
 
-	<logger name="io.log.extension.agent.core.sender.Log4jSender"
-			additivity="true">
+	<logger name="io.log.extension.agent.core.sender.RpcSender"
+			additivity="false">
 		<level value="info" />
 		<!--<appender-ref ref="kafka" />-->
+		<appender-ref ref="logx" />
 	</logger>
 
 	<root>

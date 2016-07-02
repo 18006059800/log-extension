@@ -5,8 +5,11 @@
        http://www.springframework.org/schema/beans/spring-beans.xsd
     http://jsf.jd.com/schema/jsf http://jsf.jd.com/schema/jsf/jsf.xsd">
 
-    <!-- 实现类 -->
-    <bean id="remoteServiceImpl" class="io.log.extension.server.rpc.RemoteServiceImpl" />
+
+    <bean id="remoteServiceImpl" class="io.log.extension.server.rpc.RemoteServiceImpl">
+        <property name="messageService" ref="messageService"/>
+    </bean>
+
     <!-- 注册中心 address="192.168.150.119:40660,192.168.150.121:40660" -->
     <!--<jsf:registry id="jsfRegistry" index="i.jsf.jd.com" />-->
     <jsf:registry id="jsfRegistry" address="192.168.150.119:40660" />

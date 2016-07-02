@@ -4,14 +4,18 @@ import io.log.extension.api.DefaultMessage;
 import io.log.extension.api.RemoteService;
 import io.log.extension.server.service.MessageService;
 import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 /**
  * Created by percy on 6/28/16.
  */
+//@Service("remoteServiceImpl")
 public class RemoteServiceImpl implements RemoteService {
 
+//    @Autowired
     private MessageService messageService;
 
     public MessageService getMessageService() {

@@ -99,6 +99,14 @@
 			<!--<artifactId>kafka-tools</artifactId>-->
 			<!--<version>0.9.0.1</version>-->
 		<!--</dependency>-->
+
+		<dependency>
+			<groupId>com.jd</groupId>
+			<artifactId>jsf</artifactId>
+			<version>1.5.5</version>
+			<systemPath>${basedir}/src/main/lib/jsf-1.5.5.jar</systemPath>
+			<scope>system</scope>
+		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
