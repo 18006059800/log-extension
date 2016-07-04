@@ -135,9 +135,13 @@ $(function () {
     chainJs.loadAppInfo();
     var substr = window.location.search.substr(1);
     var rootMessageId = urlUtilJS.getUrlParam(substr, 'rootMessageId');
-
+    var error = urlUtilJS.getUrlParam(substr, 'error');
     if (rootMessageId) {
-        $.get("/app/getShowChainMessage?rootMessageId=" + rootMessageId, function (data) {
+        var url = "/app/getShowChainMessage?rootMessageId=" + rootMessageId;
+        if (error && '' != error) {
+            url = "/app/getShowChainMessage?rootMessageId=" + rootMessageId + "&error=" + error;
+        }
+        $.get(url, function (data) {
             chainJs.initPage(data)
         });
     }

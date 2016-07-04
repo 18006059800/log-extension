@@ -28,10 +28,15 @@
           class="io.log.extension.agent.core.handler.DefaultMessageHandler">
         <property name="sender" ref="rpcSender" />
     </bean>
+    <bean id="exceptionMessageHandler"
+          class="io.log.extension.agent.core.handler.ExceptionMessageHandler">
+        <property name="sender" ref="rpcSender" />
+    </bean>
+
     <util:list id="messageHandlers" list-class="java.util.ArrayList">
         <ref bean="defaultMessageHandler" />
+        <ref bean="exceptionMessageHandler" />
     </util:list>
-
     <bean id="logExtensionInterceptor"
           class="io.log.extension.agent.core.interceptor.LogExtensionInterceptor">
         <property name="handlers" ref="messageHandlers" />
@@ -44,7 +49,7 @@
 
             <aop:before method="doBefore" pointcut-ref="target" />
             <aop:after method="doAfter" pointcut-ref="target" />
-
+            <aop:after-throwing method="doThrowing" pointcut-ref="target" throwing="ex"/>
         </aop:aspect>
     </aop:config>
 </beans>

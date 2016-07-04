@@ -2,6 +2,7 @@ package io.log.extension.server.controller;
 
 import io.log.extension.server.entity.DefaultMessage;
 import io.log.extension.server.entity.Domain;
+import io.log.extension.server.entity.ExceptionMessage;
 import io.log.extension.server.service.MessageService;
 import io.log.extension.server.service.vo.ListMessageCriteria;
 import io.log.extension.server.service.vo.TreeGridMessage;
@@ -53,9 +54,30 @@ public class AppInfoController {
 
     @ResponseBody
     @RequestMapping("/getShowChainMessage")
-    public List<TreeGridMessage> getShowChainMessage(String rootMessageId, ModelMap mm) {
-        List<DefaultMessage> result = messageService.getMessageChain(rootMessageId);
+    public List<TreeGridMessage> getShowChainMessage(String rootMessageId, Boolean error) {
+
         List<TreeGridMessage> messages = new ArrayList<TreeGridMessage>();
+
+        if (null != error && error) {
+            List<ExceptionMessage> result = messageService.getErrorMessageChain(rootMessageId);
+            for (ExceptionMessage item :result) {
+                TreeGridMessage message = new TreeGridMessage();
+                message.setClassMethod(item.getClassMethod());
+                message.setClassName(item.getClassName());
+                message.setId(item.getMessageId());
+                message.setDomain(item.getDomain());
+                message.setHasError(item.getHasError());
+                if (item.getMessageId().equals(item.getParentMessageId())) {
+                    message.setPid("-1");
+                } else {
+                    message.setPid(item.getParentMessageId());
+                }
+                messages.add(message);
+            }
+            return  messages;
+        }
+
+        List<DefaultMessage> result = messageService.getMessageChain(rootMessageId);
 
         for (DefaultMessage item : result) {
             TreeGridMessage message = new TreeGridMessage();
@@ -127,7 +149,8 @@ public class AppInfoController {
         Integer size = criteria.getSize();
         page = (null == page) ? 0 : page;
         size = (null == size) ? 20 : size;
-
+        criteria.setPage(page);
+        criteria.setSize(size);
 
         List<Domain> domains = messageService.findAllDomain();
         mm.put("domains", domains);
@@ -142,9 +165,13 @@ public class AppInfoController {
             return "/exception";
         }
 
+        Page<ExceptionMessage> messages = messageService.findExceptionMessage(criteria);
+
         mm.put("page", page);
         mm.put("size", size);
-        mm.put("totalPages", 0);
+        mm.put("totalPages", messages.getTotalPages());
+        mm.put("data", messages.getContent());
+
         return "/exception";
     }
 

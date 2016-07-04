@@ -126,4 +126,25 @@ public class MessageService {
         BeanUtils.copyProperties(defaultMessage, exceptionMessage);
         return exceptionMessage;
     }
+
+    public Page<ExceptionMessage> findExceptionMessage(ListMessageCriteria criteria) {
+        Pageable pageable = new PageRequest(criteria.getPage(), criteria.getSize());
+
+        if (StringUtils.isEmpty(criteria.getClassName())) {
+            Page<ExceptionMessage> result = exceptionMessageRepo.findByDomainOrderByStartDesc(criteria.getDomain(), pageable);
+            return result;
+        }
+        if (StringUtils.isEmpty(criteria.getClassMethod())) {
+            Page<ExceptionMessage> result = exceptionMessageRepo.findByDomainAndClassNameOrderByStartDesc(criteria.getDomain(), criteria.getClassName(), pageable);
+            return result;
+        }
+
+        Page<ExceptionMessage> result = exceptionMessageRepo.findByDomainAndClassNameAndClassMethodOrderByStartDesc(criteria.getDomain(), criteria.getClassName(), criteria.getClassMethod(), pageable);
+        return result;
+    }
+
+    public List<ExceptionMessage> getErrorMessageChain(String rootMessageId) {
+        List<ExceptionMessage> result = exceptionMessageRepo.findByRootMessageId(rootMessageId);
+        return result;
+    }
 }

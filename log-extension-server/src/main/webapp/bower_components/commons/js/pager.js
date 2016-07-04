@@ -32,7 +32,6 @@ function firstPage() {
 		nUrl = replaceParamVal(pager.url, "page", 0);
 		return nUrl;
 	}
-	alert(pager.url);
 	return pager.url;
 }
 

@@ -1,4 +1,4 @@
-var rootMessageJs = {
+var exceptionMessageJs = {
     // 加载应用信息
     loadAppInfo : (function () {
         $.get("/app/list", function (data) {
@@ -26,7 +26,7 @@ var rootMessageJs = {
         $("#classMethod-id").empty();
         $("#className-id").prepend("<option value=''>请选择</option>");
         $("#classMethod-id").prepend("<option value=''>请选择</option>");
-        rootMessageJs.loadClassInfo();
+        exceptionMessageJs.loadClassInfo();
     }),
 
     // 加载类信息
@@ -53,7 +53,7 @@ var rootMessageJs = {
     classNameChanged : (function () {
         $("#classMethod-id").empty();
         $("#classMethod-id").prepend("<option value=''>请选择</option>");
-        rootMessageJs.loadMethodInfo();
+        exceptionMessageJs.loadMethodInfo();
 
     }),
 

@@ -132,6 +132,12 @@ public class LogExtensionInterceptor {
 			tdm.remove();
 			return;
 		}
+
+		if (ms.size() < 1) {
+			tdm.remove();
+			return;
+		}
+
 		DefaultMessage dm = ms.pop();
 
 		dm.setTime(new Date().getTime() - dm.getStart().getTime());
@@ -159,15 +165,28 @@ public class LogExtensionInterceptor {
 
 		if (null == ms) {
 			tdm.remove();
+			return;
 		}
+
+		if (ms.size() < 1) {
+			tdm.remove();
+			for (Handler handler : handlers) {
+				handler.destory();
+			}
+			return;
+		}
+
 		DefaultMessage dm = ms.pop();
 
 		dm.setTime(new Date().getTime() - dm.getStart().getTime());
 		dm.setStatus(Constants.MESSAGE_STATUS_FAIL);
 		dm.setContent(ex.toString());
 		dm.setHasError(true);
-		DefaultMessage parentMessage = ms.peek();
-		parentMessage.setHasError(true);
+		if (ms.size() > 0) {
+			DefaultMessage parentMessage = ms.peek();
+			parentMessage.setHasError(true);
+		}
+
 		for (Handler handler : handlers) {
 			handler.doHandle(dm);
 		}
@@ -178,6 +197,7 @@ public class LogExtensionInterceptor {
 				handler.destory();
 			}
 		}
+
 	}
 
 }

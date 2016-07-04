@@ -28,7 +28,7 @@
     <script src="/bower_components/bootstrap-combobox/js/bootstrap-combobox.js"></script>
     <script src="/bower_components/commons/js/hashtable.js"></script>
     <script src="/bower_components/commons/js/hashset.js"></script>
-    <script src="/bower_components/commons/js/logx/root.js"></script>
+    <script src="/bower_components/commons/js/logx/exception.js"></script>
     <script src="/bower_components/commons/js/pager.js"></script>
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <script src="/bower_components/dashboard/ie10-viewport-bug-workaround.js"></script>
@@ -37,7 +37,7 @@
     <script type="text/javascript">
 
         $(function () {
-            rootMessageJs.loadAppInfo();
+            exceptionMessageJs.loadAppInfo();
             pager.page = "${page}";
             pager.size = "${size}";
             pager.totalPages = "${totalPages}";
@@ -102,18 +102,18 @@
                 <div class="panel-heading">
                     <h3 class="panel-title">操作区</h3>
                 </div>
-                <form id="query-message-form" class="form-inline" action="/app/list-root-message" method="get">
+                <form id="query-message-form" class="form-inline" action="/app/exception" method="get">
                     <div class="form-group">
                         <label for="domain-id">应用 * : </label>
                         <select id="domain-id" name="domain" class="form-control"
-                                onchange="rootMessageJs.domainChanged()" style="width: 120px;">
+                                onchange="exceptionMessageJs.domainChanged()" style="width: 120px;">
                             <option value="">请选择</option>
                         </select>
                     </div>
 
                     <div class="form-group">
                         <label for="className-id">类名称：</label>
-                        <select id="className-id" name="className" class="form-control" style="width: 120px;" onchange="rootMessageJs.classNameChanged()">
+                        <select id="className-id" name="className" class="form-control" style="width: 120px;" onchange="exceptionMessageJs.classNameChanged()">
                             <option value="">请选择</option>
                         </select>
                     </div>
@@ -125,7 +125,7 @@
                     </div>
                     <input type="hidden" name="page"/>
                     <input type="hidden" name="size"/>
-                    <input type="button" class="btn btn-primary" onclick="rootMessageJs.query()" value="查询"/>
+                    <input type="button" class="btn btn-primary" onclick="exceptionMessageJs.query()" value="查询"/>
                 </form>
             </div>
 
@@ -145,7 +145,7 @@
                         <tr>
                             <td>${item.domain}</td>
                             <td>${item.className}</td>
-                            <td><a href="/app/showChain?rootMessageId=${item.rootMessageId}">${item.classMethod}</a></td>
+                            <td><a href="/app/showChain?rootMessageId=${item.rootMessageId}&error=true">${item.classMethod}</a></td>
                             <td>${item.host}</td>
                             <td>${item.start}</td>
                         </tr>
