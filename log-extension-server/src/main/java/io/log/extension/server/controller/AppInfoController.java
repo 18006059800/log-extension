@@ -17,8 +17,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 /**
  * 应用信息
@@ -57,10 +56,11 @@ public class AppInfoController {
     public List<TreeGridMessage> getShowChainMessage(String rootMessageId, Boolean error) {
 
         List<TreeGridMessage> messages = new ArrayList<TreeGridMessage>();
-
         if (null != error && error) {
             List<ExceptionMessage> result = messageService.getErrorMessageChain(rootMessageId);
-            for (ExceptionMessage item :result) {
+
+            Collection<ExceptionMessage> newResult = deleteTwiceMessage(result);
+            for (ExceptionMessage item :newResult) {
                 TreeGridMessage message = new TreeGridMessage();
                 message.setClassMethod(item.getClassMethod());
                 message.setClassName(item.getClassName());
@@ -175,4 +175,11 @@ public class AppInfoController {
         return "/exception";
     }
 
+    private Collection<ExceptionMessage> deleteTwiceMessage (List<ExceptionMessage> defaultMessages) {
+        Map<String, ExceptionMessage> result = new HashMap<>();
+        for (ExceptionMessage dm : defaultMessages) {
+            result.put(dm.getMessageId(), dm);
+        }
+        return result.values();
+    }
 }

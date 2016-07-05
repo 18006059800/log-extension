@@ -37,6 +37,8 @@ public class RemoteServiceImpl implements RemoteService {
     }
 
     private io.log.extension.server.entity.DefaultMessage convert(DefaultMessage defaultMessage) {
+
+//        System.out.println(defaultMessage);
         io.log.extension.server.entity.DefaultMessage result = new io.log.extension.server.entity.DefaultMessage();
         BeanUtils.copyProperties(defaultMessage, result);
         return result;

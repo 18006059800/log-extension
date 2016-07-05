@@ -48,10 +48,8 @@ public class MessageService {
             return;
         }
 
-        if (defaultMessage.getHasError()) {
-            ExceptionMessage exceptionMessage = convertExceptionMessage(defaultMessage);
-            exceptionMessageRepo.save(exceptionMessage);
-        }
+        ExceptionMessage exceptionMessage = convertExceptionMessage(defaultMessage);
+        exceptionMessageRepo.save(exceptionMessage);
 
         defaultMessageRepo.save(defaultMessage);
     }

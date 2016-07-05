@@ -28,7 +28,7 @@ public class RpcSender implements Sender{
 
     @Override
     public void send(DefaultMessage message) {
-        log.info("" + JsonUtil.marshal(message));
+        log.info("123" + JsonUtil.marshal(message));
         remoteService.send(message);
     }
 }

@@ -11,8 +11,8 @@ public class UserRepo {
 		Random random = new Random();
 		Integer ri = random.nextInt(10);
 
-		if (ri > 5) {
+//		if (ri > 5) {
 			throw new RuntimeException("===============");
-		}
+//		}
 	}
 }
