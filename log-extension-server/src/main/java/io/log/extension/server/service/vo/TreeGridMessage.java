@@ -10,6 +10,7 @@ public class TreeGridMessage {
     private String className;
     private String classMethod;
     private Boolean hasError;
+    private String host;
 
     public String getId() {
         return id;
@@ -57,5 +58,13 @@ public class TreeGridMessage {
 
     public void setHasError(Boolean hasError) {
         this.hasError = hasError;
+    }
+
+    public String getHost() {
+        return host;
+    }
+
+    public void setHost(String host) {
+        this.host = host;
     }
 }

@@ -109,6 +109,7 @@
                             <th width="20%" style="text-align: center;">应用名称</th>
                             <th style="text-align: center;">类名称</th>
                             <th width="15%" style="text-align: center;">方法名</th>
+                            <th width="10%" style="text-align: center;">IP</th>
                             <th width="8%" style="text-align: center;">完整性</th>
                         </tr>
                     </thead>

@@ -67,6 +67,7 @@ public class AppInfoController {
                 message.setId(item.getMessageId());
                 message.setDomain(item.getDomain());
                 message.setHasError(item.getHasError());
+                message.setHost(item.getHost());
                 if (item.getMessageId().equals(item.getParentMessageId())) {
                     message.setPid("-1");
                 } else {
@@ -86,6 +87,7 @@ public class AppInfoController {
             message.setId(item.getMessageId());
             message.setDomain(item.getDomain());
             message.setHasError(item.getHasError());
+            message.setHost(item.getHost());
             if (item.getMessageId().equals(item.getParentMessageId())) {
                 message.setPid("-1");
             } else {

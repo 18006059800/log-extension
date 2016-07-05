@@ -122,6 +122,7 @@ var chainJs = {
             content += "<td>" + t.domain + "</td>";
             content += "<td>" + t.className + "</td>";
             content += "<td>" + t.classMethod + "</td>";
+            content += "<td>" + t.host + "</td>";
             content += "<td>" + !t.hasError + "</td>";
             content += "</tr>";
         }
