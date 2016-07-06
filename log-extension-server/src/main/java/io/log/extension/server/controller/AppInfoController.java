@@ -134,8 +134,10 @@ public class AppInfoController {
 
             return "/index";
         }
+        criteria.setPage(page);
+        criteria.setSize(size);
 
-        Page<DefaultMessage> messages = messageService.findAllRootMessage (criteria.getDomain(), page, size);
+        Page<DefaultMessage> messages = messageService.findSelectedMessagePageable(criteria);
         data = messages.getContent();
         mm.put("data", data);
         mm.put("page", page);

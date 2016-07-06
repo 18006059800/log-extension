@@ -50,8 +50,9 @@ public class MessageService {
 
         ExceptionMessage exceptionMessage = convertExceptionMessage(defaultMessage);
         exceptionMessageRepo.save(exceptionMessage);
-
-        defaultMessageRepo.save(defaultMessage);
+        if (!"error".equals(defaultMessage.getMessageType())) {
+            defaultMessageRepo.save(defaultMessage);
+        }
     }
 
     /**
@@ -115,6 +116,22 @@ public class MessageService {
             return result;
         }
         result = defaultMessageRepo.findByDomainAndClassNameAndClassMethodAndIsRootMessage(criteria.getDomain(), criteria.getClassName(), criteria.getClassMethod(), true);
+
+        return result;
+    }
+
+    public Page<DefaultMessage> findSelectedMessagePageable(ListMessageCriteria criteria) {
+        Page<DefaultMessage> result = null;
+        Pageable pageable = new PageRequest(criteria.getPage(), criteria.getSize());
+        if (StringUtils.isEmpty(criteria.getClassName())) {
+            result = defaultMessageRepo.findByDomainOrderByStartDesc(criteria.getDomain(), pageable);
+            return result;
+        }
+        if (StringUtils.isEmpty(criteria.getClassMethod())) {
+            result = defaultMessageRepo.findByDomainAndClassNameOrderByStartDesc(criteria.getDomain(), criteria.getClassName(), pageable);
+            return result;
+        }
+        result = defaultMessageRepo.findByDomainAndClassNameAndClassMethodOrderByStartDesc(criteria.getDomain(), criteria.getClassName(), criteria.getClassMethod(), pageable);
 
         return result;
     }

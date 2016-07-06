@@ -181,6 +181,7 @@ public class LogExtensionInterceptor {
 		dm.setTime(new Date().getTime() - dm.getStart().getTime());
 		dm.setStatus(Constants.MESSAGE_STATUS_FAIL);
 		dm.setContent(ex.toString());
+		dm.setMessageType(Constants.MESSAGE_TYPE_ERROR);
 		dm.setHasError(true);
 		if (ms.size() > 0) {
 			DefaultMessage parentMessage = ms.peek();

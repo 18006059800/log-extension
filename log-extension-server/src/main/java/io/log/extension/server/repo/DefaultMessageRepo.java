@@ -23,4 +23,10 @@ public interface DefaultMessageRepo extends ElasticsearchRepository<DefaultMessa
 	List<DefaultMessage> findByDomainAndClassNameAndClassMethodAndIsRootMessage(String domain, String className, String classMethod, boolean b);
 
 	List<DefaultMessage> findByRootMessageId(String rootMessageId);
+
+	Page<DefaultMessage> findByDomainOrderByStartDesc(String domain, Pageable pageable);
+
+	Page<DefaultMessage> findByDomainAndClassNameOrderByStartDesc(String domain, String className, Pageable pageable);
+
+	Page<DefaultMessage> findByDomainAndClassNameAndClassMethodOrderByStartDesc(String domain, String className, String classMethod, Pageable pageable);
 }
