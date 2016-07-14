@@ -130,11 +130,13 @@ public class LogExtensionInterceptor {
 		Stack<DefaultMessage> ms = tdm.get();
 		if (null == ms) {
 			tdm.remove();
+			MDC.clear();
 			return;
 		}
 
 		if (ms.size() < 1) {
 			tdm.remove();
+			MDC.clear();
 			return;
 		}
 
@@ -149,6 +151,7 @@ public class LogExtensionInterceptor {
 
 		if (dm.getIsRootMessage() || ms.size() < 1) {
 			tdm.remove();
+			MDC.clear();
 			for (Handler handler : handlers) {
 				handler.destory();
 			}
@@ -165,11 +168,13 @@ public class LogExtensionInterceptor {
 
 		if (null == ms) {
 			tdm.remove();
+			MDC.clear();
 			return;
 		}
 
 		if (ms.size() < 1) {
 			tdm.remove();
+			MDC.clear();
 			for (Handler handler : handlers) {
 				handler.destory();
 			}
@@ -194,6 +199,7 @@ public class LogExtensionInterceptor {
 
 		if (dm.getIsRootMessage() || ms.size() < 1) {
 			tdm.remove();
+			MDC.clear();
 			for (Handler handler : handlers) {
 				handler.destory();
 			}
