@@ -375,3 +375,4 @@ return invoker.invoke(invocation);
 
 
 > 参考代码位置：https://github.com/Percy0601/log-extension
+> 原文地址：http://note.youdao.com/yws/public/redirect/share?id=061946ab9185ee0c9bd32419ea281dcc&type=false
